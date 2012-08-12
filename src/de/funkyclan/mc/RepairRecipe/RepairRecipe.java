@@ -71,6 +71,9 @@ public class RepairRecipe extends JavaPlugin {
         repairRecipes.add(new ShapelessRepairRecipe(Material.DIAMOND_SPADE, Material.DIAMOND, 1));
         repairRecipes.add(new ShapelessRepairRecipe(Material.DIAMOND_SWORD, Material.DIAMOND, 2));
 
+        repairRecipes.add(new ShapelessRepairRecipe(Material.BOW, Material.STRING, 2));
+        repairRecipes.add(new ShapelessRepairRecipe(Material.FISHING_ROD, Material.STRING, 2));
+
         for (ShapelessRepairRecipe recipe : repairRecipes) {
             getServer().addRecipe(recipe);
         }

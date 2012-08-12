@@ -26,6 +26,7 @@ Base items:
 * wooden planks for wood tools
 * gold ingots for gold tools, weapons and armour
 * diamond for diamond tools, weapons and armour
+* string for bow and fishing rod
 
 Installation
 ------------
@@ -53,5 +54,4 @@ TODO
 * make repair costs configurable
 * configurable allow/disallow enchantment repair
 * add permissions
-* add bow (base item - string?) and fishing rod (base item - string?)
 * _if you have any other ideas, create a feature request_
