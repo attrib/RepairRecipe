@@ -3,7 +3,7 @@ RepairRecipe
 
 See also Bukkit plugin page: http://dev.bukkit.org/server-mods/repairrecipe/
 
-Version 0.1
+Version 0.1.1
 
 Compatible Bukkit Version: 1.2.5-R5.0, 1.3.1-R1.0
 
@@ -19,7 +19,7 @@ Example:
 * One iron ingot repairs 1/9 of an iron pickaxe with a level 3 enchantment.
 
 Base items:
-* iron ingot for all iron tools, weapons and armour
+* iron ingot for all iron tools, weapons, armour and shears
 * iron ingot for chainmail armour (but cheaper than iron armour)
 * leather for leather armour
 * cobblestone for stone tools

@@ -50,6 +50,7 @@ public class RepairRecipe extends JavaPlugin {
         repairRecipes.add(new ShapelessRepairRecipe(Material.IRON_PICKAXE, Material.IRON_INGOT, 3));
         repairRecipes.add(new ShapelessRepairRecipe(Material.IRON_SPADE, Material.IRON_INGOT, 1));
         repairRecipes.add(new ShapelessRepairRecipe(Material.IRON_SWORD, Material.IRON_INGOT, 2));
+        repairRecipes.add(new ShapelessRepairRecipe(Material.SHEARS, Material.IRON_INGOT, 1));
 
         repairRecipes.add(new ShapelessRepairRecipe(Material.GOLD_AXE, Material.GOLD_INGOT, 3));
         repairRecipes.add(new ShapelessRepairRecipe(Material.GOLD_BOOTS, Material.GOLD_INGOT, 4));
