@@ -2,10 +2,12 @@ package de.funkyclan.mc.RepairRecipe;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class RepairRecipeConfig {
@@ -14,9 +16,12 @@ public class RepairRecipeConfig {
 
     private Permission permission = null;
     private Economy economy;
+    private HashMap<String, Integer> discountGroups;
 
     public static final String PERM_REPAIR         = "RepairRecipe.repair";
     public static final String PERM_REPAIR_ENCHANT = "RepairRecipe.repair.enchant";
+
+    public static final boolean DEBUG = true;
 
     public enum Default {
         PERM_REPAIR (true),
@@ -63,6 +68,14 @@ public class RepairRecipeConfig {
 
         plugin.getConfig().options().copyDefaults(true);
         plugin.saveConfig();
+
+        ConfigurationSection discountSection = plugin.getConfig().getConfigurationSection("discount");
+        discountGroups = new HashMap<String, Integer>();
+        if (discountSection != null) {
+            for (String group : discountSection.getKeys(false)) {
+                discountGroups.put(group, discountSection.getInt(group, 0));
+            }
+        }
     }
 
     public boolean hasPermission(Player player, String permissionString) {
@@ -81,15 +94,18 @@ public class RepairRecipeConfig {
     }
 
     public boolean configAllowOverRepair() {
+        if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("allow_over_repair: "+plugin.getConfig().getBoolean("allow_over_repair", Default.CONF_ALLOW_OVER_REPAIR.getBoolean()));
         return plugin.getConfig().getBoolean("allow_over_repair", Default.CONF_ALLOW_OVER_REPAIR.getBoolean());
     }
 
     public boolean configKeepEnchantments() {
+        if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("keep_enchantments: " + plugin.getConfig().getBoolean("keep_enchantments", Default.CONF_KEEP_ENCHANTS.getBoolean()));
         return plugin.getConfig().getBoolean("keep_enchantments", Default.CONF_KEEP_ENCHANTS.getBoolean());
     }
 
     public double configMaxEnchantMultiplier() {
         int multiplier = plugin.getConfig().getInt("enchant_multiplier", Default.CONF_MAX_ENCHANT_MULTIPLER.getInt());
+        if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("enchant_multiplier: "+multiplier);
         if (multiplier <= 0) {
             return 0.0;
         }
@@ -104,24 +120,28 @@ public class RepairRecipeConfig {
             return 1.0;
         }
         int discount = 0;
-        List<String> discountGroups = plugin.getConfig().getStringList("discount");
+
         for (String group : permission.getPlayerGroups(player)) {
-            if (discountGroups.contains(group)) {
-                discount = Math.max(discount, plugin.getConfig().getInt("discount."+group, 0));
+            if (discountGroups.containsKey(group)) {
+                if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Player Groups "+group+ " discount "+discountGroups.get(group));
+                discount = Math.max(discount, discountGroups.get(group));
             }
         }
         if (discount >= 100) {
             return 0.001;
         }
-        return 1.0-(discount/100.0);
+        return 1.0+(discount/100.0);
     }
 
     public double configDiscount(List<HumanEntity> players) {
-        double discount = 1.0;
+        double discount = Double.MAX_VALUE;
         for (HumanEntity player : players) {
             if (player instanceof Player) {
-                discount = Math.max(discount, configDiscount((Player) player));
+                discount = Math.min(discount, configDiscount((Player) player));
             }
+        }
+        if (discount == Double.MAX_VALUE) {
+            discount = 1.0;
         }
         return discount;
     }

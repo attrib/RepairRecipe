@@ -86,6 +86,7 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
         if (ingot != null) {
             Map<Enchantment, Integer> enchantments = repairedItem.getEnchantments();
             if (!plugin.getConfigurator().configKeepEnchantments() || !hasPermission(players, RepairRecipeConfig.PERM_REPAIR_ENCHANT)) {
+                if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Removing Enchantments of item.");
                 for (Enchantment ench : enchantments.keySet()) {
                     repairedItem.removeEnchantment(ench);
                 }
@@ -97,12 +98,16 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
                 }
             }
             double costIngotPerDurability = (double) item.getMaxDurability()/ingotCost;
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("costIngotPerDurability: "+costIngotPerDurability);
             double enchantMultiplier = enchantLevel*plugin.getConfigurator().configMaxEnchantMultiplier();
             if (enchantMultiplier > 0.0) {
                 costIngotPerDurability = costIngotPerDurability / enchantMultiplier;
             }
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("costIngotPerDurability+enchantMulti: "+costIngotPerDurability + " (EnchantMulti: "+plugin.getConfigurator().configMaxEnchantMultiplier()+")");
             costIngotPerDurability = costIngotPerDurability * plugin.getConfigurator().configDiscount(players);
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("costIngotPerDurability+enchantMulti+Discount: "+costIngotPerDurability+" (Discount: "+plugin.getConfigurator().configDiscount(players)+")");
             int ingotCost = new Double(Math.ceil(repairedItem.getDurability() / costIngotPerDurability)).intValue();
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("ingotCost: "+ingotCost);
             short durability = 0;
             if (ingot.getAmount() < ingotCost) {
                 ingotCost = ingot.getAmount();
@@ -111,6 +116,7 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
             else if (plugin.getConfigurator().configAllowOverRepair()) {
                 durability = (short)(repairedItem.getDurability() - new Double(Math.ceil(ingotCost * costIngotPerDurability)).shortValue());
             }
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("New Durability: "+durability);
             repairedItem.setDurability(durability);
             if (setInventory) {
                 if (ingotCost-1 > 0) {
