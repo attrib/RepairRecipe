@@ -75,4 +75,5 @@ Permissions
 -----------
 
 `RepairRecipe.repair` - Player is allowed to repair items. Default: true
+
 `RepairRecipe.repair.enchant` - Player is allowed to keep enchantments. Player without this permission, can repair their items, but will lose all enchantments. Default: true
