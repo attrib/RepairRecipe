@@ -6,7 +6,7 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e02dc4df-5e68-4098-97c7-9611160ac706" name="Default" comment="Updated README">
+    <list default="true" id="e02dc4df-5e68-4098-97c7-9611160ac706" name="Default" comment="Fixed Bug when repairing Items with Vault activated but no Permission Plugin">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CHANGELOG.md" afterPath="$PROJECT_DIR$/CHANGELOG.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java" afterPath="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java" />
@@ -97,7 +97,7 @@
       <file leaf-file-name="RepairRecipeConfig.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="26" column="44" selection-start="935" selection-end="935" vertical-scroll-proportion="0.0">
+            <state line="15" column="112" selection-start="427" selection-end="427" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -124,7 +124,7 @@
       <file leaf-file-name="CHANGELOG.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="10" column="78" selection-start="249" selection-end="327" vertical-scroll-proportion="0.29360968">
+            <state line="11" column="46" selection-start="330" selection-end="374" vertical-scroll-proportion="0.32297063">
               <folding />
             </state>
           </provider>
@@ -169,8 +169,8 @@
         <option value="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/ShapelessRepairRecipe.java" />
         <option value="$PROJECT_DIR$/resources/plugin.yml" />
         <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java" />
         <option value="$PROJECT_DIR$/CHANGELOG.md" />
+        <option value="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java" />
       </list>
     </option>
   </component>
@@ -545,7 +545,11 @@
       <created>1345304645692</created>
       <updated>1345304645692</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="Fixed Bug when repairing Items with Vault activated but no Permission Plugin">
+      <created>1345305771510</created>
+      <updated>1345305771510</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -612,7 +616,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Updated README" />
+    <option name="LAST_COMMIT_MESSAGE" value="Fixed Bug when repairing Items with Vault activated but no Permission Plugin" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -635,6 +639,7 @@
     <MESSAGE value="Added Permission RepairRecipe.repair.overRepair&#10;Fixed Enchantment Multiplier could reduce repair costs&#10;Added Enchantment Multiplier per Group Configuration" />
     <MESSAGE value="Changed Version Number to 0.2" />
     <MESSAGE value="Updated README" />
+    <MESSAGE value="Fixed Bug when repairing Items with Vault activated but no Permission Plugin" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -691,14 +696,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="26" column="44" selection-start="935" selection-end="935" vertical-scroll-proportion="0.0">
+        <state line="15" column="112" selection-start="427" selection-end="427" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="10" column="78" selection-start="249" selection-end="327" vertical-scroll-proportion="0.29360968">
+        <state line="11" column="46" selection-start="330" selection-end="374" vertical-scroll-proportion="0.32297063">
           <folding />
         </state>
       </provider>

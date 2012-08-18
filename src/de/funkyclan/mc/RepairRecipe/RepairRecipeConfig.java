@@ -24,7 +24,7 @@ public class RepairRecipeConfig {
     public static final String PERM_REPAIR_ENCHANT = "RepairRecipe.repair.enchant";
     public static final String PERM_REPAIR_OVER    = "RepairRecipe.repair.overRepair";
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     public enum Default {
         PERM_REPAIR (true),

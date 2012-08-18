@@ -9,7 +9,7 @@ v0.2
 * Fixed Enchantment Multiplier could reduce repair costs
 * Added Enchantment Multiplier per Group Configuration
 * Fixed Bug when repairing Items with Vault activated but no Permission Plugin
-
+* Fixed Bug when enabling Plugin without Vault
 
 v0.2-alpha1
 -----------
