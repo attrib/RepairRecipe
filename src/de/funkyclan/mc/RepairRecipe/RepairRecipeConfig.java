@@ -17,15 +17,18 @@ public class RepairRecipeConfig {
     private Permission permission = null;
     private Economy economy;
     private HashMap<String, Integer> discountGroups;
+    private HashMap<String, Integer> enchantMultiplierGroups;
 
     public static final String PERM_REPAIR         = "RepairRecipe.repair";
     public static final String PERM_REPAIR_ENCHANT = "RepairRecipe.repair.enchant";
+    public static final String PERM_REPAIR_OVER    = "RepairRecipe.repair.overRepair";
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     public enum Default {
         PERM_REPAIR (true),
         PERM_REPAIR_ENCHANT (true),
+        PERM_REPAIR_OVER (false),
 
         CONF_ALLOW_OVER_REPAIR (false),
         CONF_KEEP_ENCHANTS (true),
@@ -76,10 +79,18 @@ public class RepairRecipeConfig {
                 discountGroups.put(group, discountSection.getInt(group, 0));
             }
         }
+        ConfigurationSection enchantMultiplierSection = plugin.getConfig().getConfigurationSection("enchant_multiplier_groups");
+        enchantMultiplierGroups = new HashMap<String, Integer>();
+        if (enchantMultiplierSection != null) {
+            for (String group : enchantMultiplierSection.getKeys(false)) {
+                enchantMultiplierGroups.put(group, enchantMultiplierSection.getInt(group, 0));
+            }
+        }
     }
 
     public boolean hasPermission(Player player, String permissionString) {
         if (permission != null) {
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Permission: "+player+" "+permissionString+" "+permission.has(player, permissionString));
             return permission.has(player, permissionString);
         }
         else if (permissionString.equals(PERM_REPAIR))  {
@@ -87,6 +98,9 @@ public class RepairRecipeConfig {
         }
         else if (permissionString.equals(PERM_REPAIR_ENCHANT))  {
             return Default.PERM_REPAIR_ENCHANT.getBoolean();
+        }
+        else if (permissionString.equals(PERM_REPAIR_OVER)) {
+            return Default.PERM_REPAIR_OVER.getBoolean();
         }
         else {
             return false;
@@ -103,16 +117,47 @@ public class RepairRecipeConfig {
         return plugin.getConfig().getBoolean("keep_enchantments", Default.CONF_KEEP_ENCHANTS.getBoolean());
     }
 
-    public double configMaxEnchantMultiplier() {
-        int multiplier = plugin.getConfig().getInt("enchant_multiplier", Default.CONF_MAX_ENCHANT_MULTIPLER.getInt());
-        if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("enchant_multiplier: "+multiplier);
+    public double configMaxEnchantMultiplier(Player player) {
+        int multiplier = Integer.MIN_VALUE;
+        if (permission != null && enchantMultiplierGroups.size() >  0) {
+            for (String group : permission.getPlayerGroups(player)) {
+                if (enchantMultiplierGroups.containsKey(group)) {
+                    if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Player Groups "+group+ " enchantment multiplier "+enchantMultiplierGroups.get(group));
+                    multiplier = Math.max(multiplier, enchantMultiplierGroups.get(group));
+                }
+            }
+        }
+        if (multiplier == Integer.MIN_VALUE) {
+            multiplier = plugin.getConfig().getInt("enchant_multiplier", Default.CONF_MAX_ENCHANT_MULTIPLER.getInt());
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("enchant_multiplier: "+multiplier);
+        }
         if (multiplier <= 0) {
             return 0.0;
         }
         if (multiplier >= 200) {
-            return 2.0;
+            return 3.0;
         }
-        return multiplier/100.0;
+        return 1.0+(multiplier/100.0);
+    }
+
+    public double configMaxEnchantMultiplier(List<HumanEntity> players) {
+        double multiplier = Double.MAX_VALUE;
+        for (HumanEntity player : players) {
+            if (player instanceof Player) {
+                multiplier = Math.min(multiplier, configMaxEnchantMultiplier((Player) player));
+            }
+        }
+        if (multiplier == Double.MAX_VALUE) {
+            multiplier = plugin.getConfig().getInt("enchant_multiplier", Default.CONF_MAX_ENCHANT_MULTIPLER.getInt());
+            if (multiplier <= 0) {
+                return 0.0;
+            }
+            if (multiplier >= 200) {
+                return 3.0;
+            }
+            return 1.0+(multiplier/100.0);
+        }
+        return multiplier;
     }
 
     public double configDiscount(Player player) {

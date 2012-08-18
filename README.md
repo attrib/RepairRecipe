@@ -57,6 +57,12 @@ If you set this to 0 there will be no extra costs to repair enchanted items.
 enchant_multiplier: 100 #value between 0 (no extra costs for enchantments) and 200 (around 30 diamonds for a pick axe with a level 4 enchantment)
 ```
 
+Its now possible to set this enchantment multiplier per group if Vault is enabled.
+```
+enchant_multiplier_groups:
+  Sponsor: 20
+```
+
 With this option you can set discounts for your Sponsors and VIPs. A discount of 100 means it only costs one base item whatever the durability of the item is.
 ```
 discount:
@@ -77,3 +83,5 @@ Permissions
 `RepairRecipe.repair` - Player is allowed to repair items. Default: true
 
 `RepairRecipe.repair.enchant` - Player is allowed to keep enchantments. Player without this permission, can repair their items, but will lose all enchantments. Default: true
+
+`RepairRecipe.repair.overRepair` - Player is allowed to over repair items. Default: false

@@ -11,3 +11,6 @@ permissions:
     RepairRecipe.repair.enchant:
         description: Allow users to repair enchanted items
         default: true
+    RepairRecipe.repair.overRepair:
+        description: Allow users to over repair items
+        default: false

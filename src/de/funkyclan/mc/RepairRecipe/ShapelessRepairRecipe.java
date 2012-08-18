@@ -99,11 +99,11 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
             }
             double costIngotPerDurability = (double) item.getMaxDurability()/ingotCost;
             if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("costIngotPerDurability: "+costIngotPerDurability);
-            double enchantMultiplier = enchantLevel*plugin.getConfigurator().configMaxEnchantMultiplier();
+            double enchantMultiplier = enchantLevel*plugin.getConfigurator().configMaxEnchantMultiplier(players);
             if (enchantMultiplier > 0.0) {
                 costIngotPerDurability = costIngotPerDurability / enchantMultiplier;
             }
-            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("costIngotPerDurability+enchantMulti: "+costIngotPerDurability + " (EnchantMulti: "+plugin.getConfigurator().configMaxEnchantMultiplier()+")");
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("costIngotPerDurability+enchantMulti: "+costIngotPerDurability + " (EnchantMulti: "+plugin.getConfigurator().configMaxEnchantMultiplier(players)+")");
             costIngotPerDurability = costIngotPerDurability * plugin.getConfigurator().configDiscount(players);
             if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("costIngotPerDurability+enchantMulti+Discount: "+costIngotPerDurability+" (Discount: "+plugin.getConfigurator().configDiscount(players)+")");
             int ingotCost = new Double(Math.ceil(repairedItem.getDurability() / costIngotPerDurability)).intValue();
@@ -113,7 +113,7 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
                 ingotCost = ingot.getAmount();
                 durability = (short)(repairedItem.getDurability() - new Double(Math.ceil(ingotCost * costIngotPerDurability)).shortValue());
             }
-            else if (plugin.getConfigurator().configAllowOverRepair()) {
+            else if (plugin.getConfigurator().configAllowOverRepair() && hasPermission(players, RepairRecipeConfig.PERM_REPAIR_OVER)) {
                 durability = (short)(repairedItem.getDurability() - new Double(Math.ceil(ingotCost * costIngotPerDurability)).shortValue());
             }
             if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("New Durability: "+durability);
