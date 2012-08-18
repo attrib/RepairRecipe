@@ -52,10 +52,12 @@ If you set this to 0 there will be no extra costs to repair enchanted items.
 >    enchant_multiplier: 100 #value between 0 (no extra costs for enchantments) and 200 (around 30 diamonds for a pick axe with a level 4 enchantment)
 
 With this option you can set discounts for your Sponsors and VIPs. A discount of 100 means it only costs one base item whatever the durability of the item is.
->    discount:
->        - Member: 10
->        - Sponsor: 20
->        - Admin: 100
+```
+discount:
+  - Member: 10
+  - Sponsor: 20
+  - Admin: 100
+```
 
 Default - no discount for anyone
     discount: false
