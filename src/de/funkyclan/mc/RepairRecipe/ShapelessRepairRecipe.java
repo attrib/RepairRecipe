@@ -2,6 +2,8 @@ package de.funkyclan.mc.RepairRecipe;
 
 import org.bukkit.Material;
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapelessRecipe;
@@ -14,8 +16,9 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
     private Material item;
     private Material ingot;
     private int ingotCost;
+    private RepairRecipe plugin;
 
-    public ShapelessRepairRecipe(Material item, Material ingot, int ingotCost) {
+    public ShapelessRepairRecipe(Material item, Material ingot, int ingotCost, RepairRecipe plugin) {
         super(new ItemStack(item));
 
         this.item = item;
@@ -25,6 +28,8 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
         addIngredient(1, ingot, -1);
 
         this.ingotCost = ingotCost;
+
+        this.plugin = plugin;
     }
 
     public String toString() {
@@ -56,7 +61,7 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
         }
     }
 
-    public ItemStack repairItem(CraftingInventory inventory, boolean setInventory) {
+    public ItemStack repairItem(CraftingInventory inventory, boolean setInventory, List<HumanEntity> players) {
         ItemStack[] matrix = inventory.getMatrix();
         ItemStack repairedItem = null;
         ItemStack ingot = null;
@@ -74,22 +79,36 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
             }
             index++;
         }
+
         if (repairedItem == null) {
             repairedItem = inventory.getResult();
         }
         if (ingot != null) {
             Map<Enchantment, Integer> enchantments = repairedItem.getEnchantments();
+            if (!plugin.getConfigurator().configKeepEnchantments() || !hasPermission(players, RepairRecipeConfig.PERM_REPAIR_ENCHANT)) {
+                for (Enchantment ench : enchantments.keySet()) {
+                    repairedItem.removeEnchantment(ench);
+                }
+            }
             int enchantLevel = 1;
             if (enchantments.size() > 0) {
                 for (Enchantment ench : enchantments.keySet()) {
                     enchantLevel += repairedItem.getEnchantmentLevel(ench);
                 }
             }
-            double costIngotPerDurability = (double) item.getMaxDurability()/ingotCost/enchantLevel;
+            double costIngotPerDurability = (double) item.getMaxDurability()/ingotCost;
+            double enchantMultiplier = enchantLevel*plugin.getConfigurator().configMaxEnchantMultiplier();
+            if (enchantMultiplier > 0.0) {
+                costIngotPerDurability = costIngotPerDurability / enchantMultiplier;
+            }
+            costIngotPerDurability = costIngotPerDurability * plugin.getConfigurator().configDiscount(players);
             int ingotCost = new Double(Math.ceil(repairedItem.getDurability() / costIngotPerDurability)).intValue();
             short durability = 0;
             if (ingot.getAmount() < ingotCost) {
                 ingotCost = ingot.getAmount();
+                durability = (short)(repairedItem.getDurability() - new Double(Math.ceil(ingotCost * costIngotPerDurability)).shortValue());
+            }
+            else if (plugin.getConfigurator().configAllowOverRepair()) {
                 durability = (short)(repairedItem.getDurability() - new Double(Math.ceil(ingotCost * costIngotPerDurability)).shortValue());
             }
             repairedItem.setDurability(durability);
@@ -104,6 +123,17 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
             }
         }
         return repairedItem;
+    }
+
+    private boolean hasPermission(List<HumanEntity> players, String permission) {
+        for (HumanEntity humanEntity : players) {
+            if (humanEntity instanceof Player) {
+                if (!plugin.getConfigurator().hasPermission((Player) humanEntity, permission)) {
+                    return false;
+                }
+            }
+        }
+        return true;
     }
 
 }

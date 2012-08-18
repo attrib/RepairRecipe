@@ -1,0 +1,4 @@
+allow_over_repair: false
+keep_enchantments: true
+enchant_multiplier: 100
+discount: false

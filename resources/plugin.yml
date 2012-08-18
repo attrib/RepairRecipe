@@ -1,4 +1,13 @@
 author: attrib
 name: RepairRecipe
 main: de.funkyclan.mc.RepairRecipe.RepairRecipe
-version: 0.1.1
+version: 0.2-alpha1
+softdepend: [Vault]
+
+permissions:
+    RepairRecipe.repair:
+        description: Allow users to repair items
+        default: true
+    RepairRecipe.repair.enchant:
+        description: Allow users to repair enchanted items
+        default: true

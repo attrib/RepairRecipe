@@ -3,7 +3,7 @@ RepairRecipe
 
 See also Bukkit plugin page: http://dev.bukkit.org/server-mods/repairrecipe/
 
-Version 0.1.1
+Version 0.2-alpha1
 
 Compatible Bukkit Version: 1.2.5-R5.0, 1.3.1-R1.0
 
@@ -28,6 +28,11 @@ Base items:
 * diamond for diamond tools, weapons and armour
 * string for bow and fishing rod
 
+Features:
+* Repair items with base item and keep enchantments
+* Over-Repair - waste no base item and allow to get items repaired over 100% durability
+* Discounts for Groups - set a discount for your sponsors (Vault needed)
+
 Installation
 ------------
 
@@ -36,22 +41,28 @@ Put the RepairRecipe.jar into bukkits plugins folder.
 Configuration
 -------------
 
-None yet.
+To allow Over-Repair set this to true (Default false)
+    allow_over_repair: false #or true
+
+If you do not want to keep enchantments, set this to false (Default true)
+    keep_enchantments: true #or false
+
+Repairing items with enchantments is expansive. With this multiplier you can make it cheaper or make it even more expansive.
+If you set this to 0 there will be no extra costs to repair enchanted items.
+    enchant_multiplier: 100 #value between 0 (no extra costs for enchantments) and 200 (around 30 diamonds for a pick axe with a level 4 enchantment)
+
+With this option you can set discounts for your Sponsors and VIPs. A discount of 100 means it only costs one base item whatever the durability of the item is.
+    discount:
+        - Member: 10
+        - Sponsor: 20
+        - Admin: 100
+
+Default - no discount for anyone
+    discount: false
+
 
 Permissions
 -----------
 
-None yet.
-
-Know Issues
------------
-
-* Ignots amount are not getting update until the user takes them out of the workbench grid
-
-TODO
------------
-
-* make repair costs configurable
-* configurable allow/disallow enchantment repair
-* add permissions
-* _if you have any other ideas, create a feature request_
+RepairRecipe.repair - Player is allowed to repair items. Default: true
+RepairRecipe.repair.enchant - Player is allowed to keep enchantments. Player without this permission, can repair their items, but will lose all enchantments. Default: true
