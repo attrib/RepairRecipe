@@ -6,14 +6,10 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e02dc4df-5e68-4098-97c7-9611160ac706" name="Default" comment="Fixed Group Discounts not working&#10;Added Debug Messages">
+    <list default="true" id="e02dc4df-5e68-4098-97c7-9611160ac706" name="Default" comment="Updated README">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CHANGELOG.md" afterPath="$PROJECT_DIR$/CHANGELOG.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/config.yml" afterPath="$PROJECT_DIR$/resources/config.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/plugin.yml" afterPath="$PROJECT_DIR$/resources/plugin.yml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java" afterPath="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/ShapelessRepairRecipe.java" afterPath="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/ShapelessRepairRecipe.java" />
     </list>
     <ignored path="RepairRecipe.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -101,7 +97,7 @@
       <file leaf-file-name="RepairRecipeConfig.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="25" column="45" selection-start="908" selection-end="908" vertical-scroll-proportion="0.0">
+            <state line="26" column="44" selection-start="935" selection-end="935" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -119,7 +115,7 @@
       <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="62" column="8" selection-start="2161" selection-end="2161" vertical-scroll-proportion="0.0">
+            <state line="33" column="131" selection-start="1348" selection-end="1348" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -128,7 +124,7 @@
       <file leaf-file-name="CHANGELOG.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="0" selection-start="85" selection-end="248" vertical-scroll-proportion="0.20552677">
+            <state line="10" column="78" selection-start="249" selection-end="327" vertical-scroll-proportion="0.29360968">
               <folding />
             </state>
           </provider>
@@ -146,7 +142,7 @@
       <file leaf-file-name="plugin.yml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/plugin.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="7" column="7" selection-start="136" selection-end="160" vertical-scroll-proportion="0.0">
+            <state line="15" column="139" selection-start="451" selection-end="451" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -169,9 +165,9 @@
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipe.java" />
         <option value="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeListener.java" />
-        <option value="$PROJECT_DIR$/resources/plugin.yml" />
         <option value="$PROJECT_DIR$/resources/config.yml" />
         <option value="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/ShapelessRepairRecipe.java" />
+        <option value="$PROJECT_DIR$/resources/plugin.yml" />
         <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java" />
         <option value="$PROJECT_DIR$/CHANGELOG.md" />
@@ -537,7 +533,19 @@
       <created>1345297586951</created>
       <updated>1345297586951</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="Added Permission RepairRecipe.repair.overRepair&#10;Fixed Enchantment Multiplier could reduce repair costs&#10;Added Enchantment Multiplier per Group Configuration">
+      <created>1345304333729</created>
+      <updated>1345304333729</updated>
+    </task>
+    <task id="LOCAL-00015" summary="Changed Version Number to 0.2">
+      <created>1345304443764</created>
+      <updated>1345304443764</updated>
+    </task>
+    <task id="LOCAL-00016" summary="Updated README">
+      <created>1345304645692</created>
+      <updated>1345304645692</updated>
+    </task>
+    <option name="localTasksCounter" value="17" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -604,7 +612,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed Group Discounts not working&#10;Added Debug Messages" />
+    <option name="LAST_COMMIT_MESSAGE" value="Updated README" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -624,6 +632,9 @@
     <MESSAGE value="Added Configuration&#10;Added Permissions&#10;Added OverRepair&#10;Added Discount" />
     <MESSAGE value="Fixes Readme" />
     <MESSAGE value="Fixed Group Discounts not working&#10;Added Debug Messages" />
+    <MESSAGE value="Added Permission RepairRecipe.repair.overRepair&#10;Fixed Enchantment Multiplier could reduce repair costs&#10;Added Enchantment Multiplier per Group Configuration" />
+    <MESSAGE value="Changed Version Number to 0.2" />
+    <MESSAGE value="Updated README" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -650,23 +661,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/resources/plugin.yml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="7" selection-start="136" selection-end="160" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/config.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="0" selection-start="73" selection-end="98" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="62" column="8" selection-start="2161" selection-end="2161" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -678,16 +675,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/resources/plugin.yml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="15" column="139" selection-start="451" selection-end="451" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="33" column="131" selection-start="1348" selection-end="1348" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="25" column="45" selection-start="908" selection-end="908" vertical-scroll-proportion="0.0">
+        <state line="26" column="44" selection-start="935" selection-end="935" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="7" column="0" selection-start="85" selection-end="248" vertical-scroll-proportion="0.20552677">
+        <state line="10" column="78" selection-start="249" selection-end="327" vertical-scroll-proportion="0.29360968">
           <folding />
         </state>
       </provider>

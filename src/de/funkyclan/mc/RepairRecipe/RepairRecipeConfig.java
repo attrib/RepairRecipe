@@ -15,6 +15,7 @@ public class RepairRecipeConfig {
     private RepairRecipe plugin;
 
     private Permission permission = null;
+    private int groups = 0;
     private Economy economy;
     private HashMap<String, Integer> discountGroups;
     private HashMap<String, Integer> enchantMultiplierGroups;
@@ -23,7 +24,7 @@ public class RepairRecipeConfig {
     public static final String PERM_REPAIR_ENCHANT = "RepairRecipe.repair.enchant";
     public static final String PERM_REPAIR_OVER    = "RepairRecipe.repair.overRepair";
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     public enum Default {
         PERM_REPAIR (true),
@@ -59,14 +60,17 @@ public class RepairRecipeConfig {
     public RepairRecipeConfig(RepairRecipe plugin) {
         this.plugin = plugin;
 
-        RegisteredServiceProvider<Permission> rsp = plugin.getServer().getServicesManager().getRegistration(Permission.class);
-        if (rsp != null) {
-            permission = rsp.getProvider();
-        }
+        if (plugin.getServer().getPluginManager().getPlugin("Vault") != null) {
+            RegisteredServiceProvider<Permission> rsp = plugin.getServer().getServicesManager().getRegistration(Permission.class);
+            if (rsp != null) {
+                groups = rsp.getProvider().getGroups().length;
+                permission = rsp.getProvider();
+            }
 
-        RegisteredServiceProvider<Economy> economyProvider = plugin.getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
-        if (economyProvider != null) {
-            economy = economyProvider.getProvider();
+            RegisteredServiceProvider<Economy> economyProvider = plugin.getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+            if (economyProvider != null) {
+                economy = economyProvider.getProvider();
+            }
         }
 
         plugin.getConfig().options().copyDefaults(true);
@@ -119,7 +123,8 @@ public class RepairRecipeConfig {
 
     public double configMaxEnchantMultiplier(Player player) {
         int multiplier = Integer.MIN_VALUE;
-        if (permission != null && enchantMultiplierGroups.size() >  0) {
+        if (permission != null && groups > 0 && enchantMultiplierGroups.size() >  0) {
+            //permission.
             for (String group : permission.getPlayerGroups(player)) {
                 if (enchantMultiplierGroups.containsKey(group)) {
                     if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Player Groups "+group+ " enchantment multiplier "+enchantMultiplierGroups.get(group));
@@ -161,7 +166,7 @@ public class RepairRecipeConfig {
     }
 
     public double configDiscount(Player player) {
-        if (permission == null) {
+        if (permission == null || groups == 0 || enchantMultiplierGroups.size() == 0) {
             return 1.0;
         }
         int discount = 0;

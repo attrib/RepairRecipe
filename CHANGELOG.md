@@ -8,6 +8,7 @@ v0.2
 * Added Permission `RepairRecipe.repair.overRepair`
 * Fixed Enchantment Multiplier could reduce repair costs
 * Added Enchantment Multiplier per Group Configuration
+* Fixed Bug when repairing Items with Vault activated but no Permission Plugin
 
 
 v0.2-alpha1
