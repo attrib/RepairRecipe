@@ -3,7 +3,7 @@ RepairRecipe
 
 See also Bukkit plugin page: http://dev.bukkit.org/server-mods/repairrecipe/
 
-Version 0.2-alpha1
+Version 0.2
 
 Compatible Bukkit Version: 1.2.5-R5.0, 1.3.1-R1.0
 
@@ -32,6 +32,7 @@ Features:
 * Repair items with base item and keep enchantments
 * Over-Repair - waste no base item and allow to get items repaired over 100% durability
 * Discounts for Groups - set a discount for your sponsors (Vault needed)
+* Configurable Enchantment Multiplier (global and per Group - Vault needed)
 
 Installation
 ------------
@@ -58,12 +59,14 @@ enchant_multiplier: 100 #value between 0 (no extra costs for enchantments) and 2
 ```
 
 Its now possible to set this enchantment multiplier per group if Vault is enabled.
+Is this option is used, enchant_multiplier is the fallback if the user has no group or if the group is not listed.
 ```
 enchant_multiplier_groups:
   Sponsor: 20
 ```
 
 With this option you can set discounts for your Sponsors and VIPs. A discount of 100 means it only costs one base item whatever the durability of the item is.
+Not added groups doesn't get an discount.
 ```
 discount:
   Member: 10
