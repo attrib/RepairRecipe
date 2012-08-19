@@ -140,7 +140,7 @@ public class RepairRecipeConfig {
             return 0.0;
         }
         if (multiplier >= 200) {
-            return 3.0;
+            return 2.0;  //This was set to 3.0...should be 2.0, no?
         }
         return 1.0+(multiplier/100.0);
     }
@@ -158,7 +158,7 @@ public class RepairRecipeConfig {
                 return 0.0;
             }
             if (multiplier >= 200) {
-                return 3.0;
+                return 2.0;  //This was set to 3.0...should be 2.0, no?
             }
             return 1.0+(multiplier/100.0);
         }
