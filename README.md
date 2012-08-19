@@ -30,9 +30,10 @@ Base items:
 
 Features:
 * Repair items with base item and keep enchantments
+* Set a chance to randomly remove enchantments on repair (configurable globally and per group - Vault needed)
+* configure the costs for enchantment repair (configurable global and per group - Vault needed)
 * Over-Repair - waste no base item and allow to get items repaired over 100% durability
-* Discounts for Groups - set a discount for your sponsors (Vault needed)
-* Configurable Enchantment Multiplier (global and per Group - Vault needed)
+* Discounts for Groups - set a discount for your sponsors (configurable global and per group - Vault needed)
 
 Installation
 ------------
@@ -44,39 +45,65 @@ Configuration
 
 To allow Over-Repair set this to true (Default false)
 ```
-allow_over_repair: false #or true
+allow_over_repair: false # or true
 ```
 
-If you do not want to keep enchantments, set this to false (Default true)
+
+If you do not want to keep enchantments, set this to 0, if you want to keep them set to 100.
+Any value between is the chance you will keep the enchantments. But keep in mind, the dice can roll up to three times for each enchant.
+If you are in luck to keep the enchant, there will be another roll with the dice. If it hits you there, the enchant gets an random lower level.
+And don't trust the result view of the workbench. You can't forecast the roll!
 ```
-keep_enchantments: true #or false
+keep_enchantments_chance: 100 #value between 0 (remove enchants) to 100 (keep enchants)
+keep_enchantments_chance_groups: {} #set it to different values foreach group
 ```
+
+You can set this chance for each permission group, if you are using Vault. For non defined groups the global default is used.
+```
+keep_enchantments_chance: 10 # be a lucky bastard to keep any enchantment
+keep_enchantments_chance_groups:
+  Sponsor: 100 # but don't mess with sponsors!
+```
+
 
 Repairing items with enchantments is expansive. With this multiplier you can make it cheaper or make it even more expansive.
 If you set this to 0 there will be no extra costs to repair enchanted items.
 ```
 enchant_multiplier: 100 #value between 0 (no extra costs for enchantments) and 200 (around 30 diamonds for a pick axe with a level 4 enchantment)
+enchant_multiplier_groups: {}
 ```
 
 Its now possible to set this enchantment multiplier per group if Vault is enabled.
 Is this option is used, enchant_multiplier is the fallback if the user has no group or if the group is not listed.
 ```
+enchant_multiplier: 100 # around 15 diamonds for a pick axe with a level 4 enchantment
 enchant_multiplier_groups:
-  Sponsor: 20
+  Sponsor: 20 # around 5 diamonds for a pick axe with a level 4 enchantment
 ```
 
-With this option you can set discounts for your Sponsors and VIPs. A discount of 100 means it only costs one base item whatever the durability of the item is.
-Not added groups doesn't get an discount.
+
+With use highest enchant you have another option to regulate the price for enchanted items.
+If this is set to false the `enchant_multiplier` will be multiplied by the sum of all the levels of the enchants on the item.
+For a tool with Unbreaking II, Fortune III and Efficiency IV this would be nine times `enchant_multiplier`.
+If you set this option to true, only the highest enchant counts and it would only be four times `enchant_multiplier`
 ```
+use_highest_enchant: false # or true
+```
+
+
+With this option you can set discounts for the repair price. Its like the 10% bonus repair with the Minecraft repair function.
+A discount of 100 means it only costs one base item whatever the durability of the item is.
+If you turned on over repair the item will have a durability of 200% with discount 100. Use something like 80 to avoid this most of the time.
+```
+discount: 10 # value between 0 (no discount) to 100 (one base item)
+discount_groups: {}
+```
+
+Like most of the settings you can set this for each permission group, if vault is activated.
+```
+discount: 10 # around 14 diamonds for a pick axe with a level 4 enchantment (multiplier 100)
 discount:
-  Member: 10
-  Sponsor: 20
-  Admin: 100
-```
-
-Default - no discount for anyone
-```
-discount: false
+  Sponsor: 25 # around 5 diamonds for a pick axe with a level 4 enchantment (multiplier 20)
 ```
 
 

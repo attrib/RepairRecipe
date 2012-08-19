@@ -3,12 +3,14 @@ package de.funkyclan.mc.RepairRecipe;
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.configuration.ConfigurationSection;
+import org.bukkit.configuration.file.FileConfiguration;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 
 public class RepairRecipeConfig {
 
@@ -19,6 +21,7 @@ public class RepairRecipeConfig {
     private Economy economy;
     private HashMap<String, Integer> discountGroups;
     private HashMap<String, Integer> enchantMultiplierGroups;
+    private HashMap<String, Integer> enchantChanceGroups;
 
     public static final String PERM_REPAIR         = "RepairRecipe.repair";
     public static final String PERM_REPAIR_ENCHANT = "RepairRecipe.repair.enchant";
@@ -32,8 +35,10 @@ public class RepairRecipeConfig {
         PERM_REPAIR_OVER (false),
 
         CONF_ALLOW_OVER_REPAIR (false),
-        CONF_KEEP_ENCHANTS (true),
-        CONF_MAX_ENCHANT_MULTIPLER (100);
+        CONF_KEEP_ENCHANTS (100),
+        CONF_HIGHEST_ENCHANT (true),
+        CONF_MAX_ENCHANT_MULTIPLIER(100),
+        CONF_DISCOUNT (10);
 
         private final boolean bdef;
         private final int idef;
@@ -73,22 +78,66 @@ public class RepairRecipeConfig {
             }
         }
 
+        changeConfig0_2_1();
         plugin.getConfig().options().copyDefaults(true);
         plugin.saveConfig();
 
-        ConfigurationSection discountSection = plugin.getConfig().getConfigurationSection("discount");
+        ConfigurationSection discountSection = plugin.getConfig().getConfigurationSection("discount_groups");
         discountGroups = new HashMap<String, Integer>();
+        int discount = plugin.getConfig().getInt("discount", Default.CONF_DISCOUNT.getInt());
         if (discountSection != null) {
             for (String group : discountSection.getKeys(false)) {
-                discountGroups.put(group, discountSection.getInt(group, 0));
+                discountGroups.put(group, discountSection.getInt(group, discount));
             }
         }
+
+        int enchantMultiplier = plugin.getConfig().getInt("enchant_multiplier", Default.CONF_MAX_ENCHANT_MULTIPLIER.getInt());
         ConfigurationSection enchantMultiplierSection = plugin.getConfig().getConfigurationSection("enchant_multiplier_groups");
         enchantMultiplierGroups = new HashMap<String, Integer>();
         if (enchantMultiplierSection != null) {
             for (String group : enchantMultiplierSection.getKeys(false)) {
-                enchantMultiplierGroups.put(group, enchantMultiplierSection.getInt(group, 0));
+                enchantMultiplierGroups.put(group, enchantMultiplierSection.getInt(group, enchantMultiplier));
             }
+        }
+
+        int enchantChance = plugin.getConfig().getInt("keep_enchantments_chance", Default.CONF_HIGHEST_ENCHANT.getInt());
+        ConfigurationSection enchantChanceSection = plugin.getConfig().getConfigurationSection("keep_enchantments_chance_groups");
+        enchantChanceGroups = new HashMap<String, Integer>();
+        if (enchantChanceSection != null) {
+            for (String group : enchantChanceSection.getKeys(false)) {
+                enchantChanceGroups.put(group, enchantChanceSection.getInt(group, enchantChance));
+            }
+        }
+    }
+
+    private void changeConfig0_2_1() {
+        FileConfiguration config = plugin.getConfig();
+        Set<String> keys = config.getKeys(false);
+        if (keys.contains("keep_enchantments")) {
+            boolean keep = config.getBoolean("keep_enchantments");
+            if (keep) {
+                config.set("keep_enchantments_chance", 100);
+            }
+            else {
+                config.set("keep_enchantments_chance", 0);
+            }
+            config.set("keep_enchantments", null);
+        }
+        if (config.isBoolean("discount")) {
+            config.set("discount", Default.CONF_DISCOUNT.getInt());
+            config.createSection("discount_groups");
+        }
+        else if (config.isConfigurationSection("discount")) {
+            ConfigurationSection discountSectionOld = config.getConfigurationSection("discount");
+            ConfigurationSection newDiscountSection = config.createSection("discount_groups");
+            for (String group : discountSectionOld.getKeys(false)) {
+                newDiscountSection.set(group, discountSectionOld.getInt(group, 0));
+            }
+
+            config.set("discount", Default.CONF_DISCOUNT.getInt());
+        }
+        if (config.isBoolean("enchant_multiplier_groups")) {
+            config.createSection("enchant_multiplier_groups");
         }
     }
 
@@ -116,33 +165,66 @@ public class RepairRecipeConfig {
         return plugin.getConfig().getBoolean("allow_over_repair", Default.CONF_ALLOW_OVER_REPAIR.getBoolean());
     }
 
-    public boolean configKeepEnchantments() {
-        if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("keep_enchantments: " + plugin.getConfig().getBoolean("keep_enchantments", Default.CONF_KEEP_ENCHANTS.getBoolean()));
-        return plugin.getConfig().getBoolean("keep_enchantments", Default.CONF_KEEP_ENCHANTS.getBoolean());
+    public int configKeepEnchantments(Player player) {
+        if (permission == null || groups == 0 || enchantChanceGroups.size() ==  0 || player == null) {
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("keep_enchantments_chance: " + plugin.getConfig().getInt("keep_enchantments_chance", Default.CONF_KEEP_ENCHANTS.getInt()));
+            return plugin.getConfig().getInt("keep_enchantments_chance", Default.CONF_KEEP_ENCHANTS.getInt());
+        }
+        else {
+            int chance = Integer.MIN_VALUE;
+            for (String group : permission.getPlayerGroups(player)) {
+                if (enchantChanceGroups.containsKey(group)) {
+                    chance = Math.max(chance, enchantChanceGroups.get(group));
+                }
+            }
+            if (chance == Integer.MIN_VALUE) {
+                chance = plugin.getConfig().getInt("keep_enchantments_chance", Default.CONF_KEEP_ENCHANTS.getInt());
+            }
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("keep_enchantments_chance_groups: " + chance);
+            return chance;
+        }
     }
+
+    public int configKeepEnchantments(List<HumanEntity> players) {
+        int chance = Integer.MAX_VALUE;
+        for (HumanEntity player : players) {
+            if (player instanceof Player) {
+                chance = Math.min(chance, configKeepEnchantments((Player) player));
+            }
+        }
+        if (chance == Integer.MAX_VALUE) {
+            chance = configKeepEnchantments((Player) null);
+        }
+        return chance;
+    }
+
+    public boolean configUseHighestEnchant() {
+        if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("use_highest_enchant: " + plugin.getConfig().getBoolean("use_highest_enchant", Default.CONF_HIGHEST_ENCHANT.getBoolean()));
+        return plugin.getConfig().getBoolean("use_highest_enchant", Default.CONF_HIGHEST_ENCHANT.getBoolean());
+    }
+
 
     public double configMaxEnchantMultiplier(Player player) {
         int multiplier = Integer.MIN_VALUE;
-        if (permission != null && groups > 0 && enchantMultiplierGroups.size() >  0) {
+        if (permission != null && groups > 0 && enchantMultiplierGroups.size() >  0 && player != null) {
             //permission.
             for (String group : permission.getPlayerGroups(player)) {
                 if (enchantMultiplierGroups.containsKey(group)) {
-                    if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Player Groups "+group+ " enchantment multiplier "+enchantMultiplierGroups.get(group));
                     multiplier = Math.max(multiplier, enchantMultiplierGroups.get(group));
                 }
             }
         }
         if (multiplier == Integer.MIN_VALUE) {
-            multiplier = plugin.getConfig().getInt("enchant_multiplier", Default.CONF_MAX_ENCHANT_MULTIPLER.getInt());
+            multiplier = plugin.getConfig().getInt("enchant_multiplier", Default.CONF_MAX_ENCHANT_MULTIPLIER.getInt());
             if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("enchant_multiplier: "+multiplier);
         }
         if (multiplier <= 0) {
             return 0.0;
         }
         if (multiplier >= 200) {
-            return 3.0;
+            return 2.0;
         }
-        return 1.0+(multiplier/100.0);
+        return (multiplier/100.0);
     }
 
     public double configMaxEnchantMultiplier(List<HumanEntity> players) {
@@ -153,34 +235,32 @@ public class RepairRecipeConfig {
             }
         }
         if (multiplier == Double.MAX_VALUE) {
-            multiplier = plugin.getConfig().getInt("enchant_multiplier", Default.CONF_MAX_ENCHANT_MULTIPLER.getInt());
-            if (multiplier <= 0) {
-                return 0.0;
-            }
-            if (multiplier >= 200) {
-                return 3.0;
-            }
-            return 1.0+(multiplier/100.0);
+            multiplier = configMaxEnchantMultiplier((Player) null);
         }
         return multiplier;
     }
 
     public double configDiscount(Player player) {
-        if (permission == null || groups == 0 || enchantMultiplierGroups.size() == 0) {
-            return 1.0;
+        if (permission == null || groups == 0 || discountGroups.size() == 0) {
+            int discount = plugin.getConfig().getInt("discount", Default.CONF_DISCOUNT.getInt());
+            if (discount >= 100) {
+                return 0.001;
+            }
+            return 1.0-(discount/100.0);
         }
-        int discount = 0;
-
+        int discount = Integer.MIN_VALUE;
         for (String group : permission.getPlayerGroups(player)) {
             if (discountGroups.containsKey(group)) {
-                if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Player Groups "+group+ " discount "+discountGroups.get(group));
                 discount = Math.max(discount, discountGroups.get(group));
             }
+        }
+        if (discount == Integer.MIN_VALUE) {
+            discount = plugin.getConfig().getInt("discount", Default.CONF_DISCOUNT.getInt());
         }
         if (discount >= 100) {
             return 0.001;
         }
-        return 1.0+(discount/100.0);
+        return 1.0-(discount/100.0);
     }
 
     public double configDiscount(List<HumanEntity> players) {

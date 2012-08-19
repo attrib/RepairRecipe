@@ -1,6 +1,14 @@
 Changelog
 =========
 
+v0.2.2
+-----------
+
+* Rewrote Repair cost formula
+* Added `use_highest_enchant` configuration
+* Changed `discount` to `discount_groups` and added `discount` as global configuration
+* Replaced configuration `keep_enchantments` with `keep_enchantments_chance` and `keep_enchantments_chance_groups`
+
 v0.2
 -----------
 

@@ -10,6 +10,7 @@ import org.bukkit.inventory.ShapelessRecipe;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class ShapelessRepairRecipe extends ShapelessRecipe {
 
@@ -85,38 +86,69 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
         }
         if (ingot != null) {
             Map<Enchantment, Integer> enchantments = repairedItem.getEnchantments();
-            if (!plugin.getConfigurator().configKeepEnchantments() || !hasPermission(players, RepairRecipeConfig.PERM_REPAIR_ENCHANT)) {
-                if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Removing Enchantments of item.");
+            boolean enchantPermission = hasPermission(players, RepairRecipeConfig.PERM_REPAIR_ENCHANT);
+            if (plugin.getConfigurator().configKeepEnchantments(players) < RepairRecipeConfig.Default.CONF_KEEP_ENCHANTS.getInt() || !enchantPermission) {
+                if (RepairRecipeConfig.DEBUG && enchantPermission) RepairRecipe.logger.info("Removing Enchantments of item.");
+                if (RepairRecipeConfig.DEBUG && !enchantPermission) RepairRecipe.logger.info("Removing Enchantments with a chance of "+plugin.getConfigurator().configKeepEnchantments(players)+" from  item.");
+                int chance = plugin.getConfigurator().configKeepEnchantments(players);
+                Random dieGod = new Random();
                 for (Enchantment ench : enchantments.keySet()) {
-                    repairedItem.removeEnchantment(ench);
+                    // player don't has permission to keep enchants, remove all enchantments
+                    // the chance is 0, no need to ask the mighty god
+                    if (!enchantPermission || chance == 0) {
+                        repairedItem.removeEnchantment(ench);
+                    }
+                    // praise to the die god to keep your enchants
+                    else {
+                        if (dieGod.nextInt(RepairRecipeConfig.Default.CONF_KEEP_ENCHANTS.getInt()) > chance) {
+                            repairedItem.removeEnchantment(ench);
+                        }
+                        else if (dieGod.nextInt(RepairRecipeConfig.Default.CONF_KEEP_ENCHANTS.getInt()) > chance) {
+                            int level = repairedItem.getEnchantmentLevel(ench);
+                            repairedItem.removeEnchantment(ench);
+                            repairedItem.addEnchantment(ench, dieGod.nextInt(level-1)+1);
+                        }
+                    }
                 }
             }
-            int enchantLevel = 1;
+            int enchantLevel = 0;
+            if (plugin.getConfigurator().configUseHighestEnchant()) {
+                enchantLevel = Integer.MIN_VALUE;
+            }
             if (enchantments.size() > 0) {
+                boolean highestEnchant = plugin.getConfigurator().configUseHighestEnchant();
                 for (Enchantment ench : enchantments.keySet()) {
-                    enchantLevel += repairedItem.getEnchantmentLevel(ench);
+                    if (highestEnchant) {
+                        enchantLevel = Math.max(enchantLevel, repairedItem.getEnchantmentLevel(ench));
+                    }
+                    else {
+                        enchantLevel += repairedItem.getEnchantmentLevel(ench);
+                    }
                 }
             }
-            double costIngotPerDurability = (double) item.getMaxDurability()/ingotCost;
-            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("costIngotPerDurability: "+costIngotPerDurability);
-            double enchantMultiplier = enchantLevel*plugin.getConfigurator().configMaxEnchantMultiplier(players);
-            if (enchantMultiplier > 0.0) {
-                costIngotPerDurability = costIngotPerDurability / enchantMultiplier;
-            }
-            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("costIngotPerDurability+enchantMulti: "+costIngotPerDurability + " (EnchantMulti: "+plugin.getConfigurator().configMaxEnchantMultiplier(players)+")");
-            costIngotPerDurability = costIngotPerDurability * plugin.getConfigurator().configDiscount(players);
-            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("costIngotPerDurability+enchantMulti+Discount: "+costIngotPerDurability+" (Discount: "+plugin.getConfigurator().configDiscount(players)+")");
-            int ingotCost = new Double(Math.ceil(repairedItem.getDurability() / costIngotPerDurability)).intValue();
-            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("ingotCost: "+ingotCost);
+            double baseRepairCost = (double) repairedItem.getDurability()/((item.getMaxDurability()/this.ingotCost));
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("baseRepairCost: "+baseRepairCost);
+
+            baseRepairCost += baseRepairCost * plugin.getConfigurator().configMaxEnchantMultiplier(players) * enchantLevel;
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("baseRepairCost+enchantMulti: "+baseRepairCost + " (EnchantMulti: "+plugin.getConfigurator().configMaxEnchantMultiplier(players)+", EnchantLevel: "+ enchantLevel +")");
+
+            double discount = plugin.getConfigurator().configDiscount(players);
+            baseRepairCost = baseRepairCost * discount;
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("costIngotPerDurability+enchantMulti+Discount: "+baseRepairCost+" (Discount: "+plugin.getConfigurator().configDiscount(players)+")");
+
+            int ingotCost = new Double(Math.ceil(baseRepairCost)).intValue();
             short durability = 0;
             if (ingot.getAmount() < ingotCost) {
                 ingotCost = ingot.getAmount();
-                durability = (short)(repairedItem.getDurability() - new Double(Math.ceil(ingotCost * costIngotPerDurability)).shortValue());
+                durability = (short)(repairedItem.getDurability() - new Double(Math.ceil(ingotCost * repairedItem.getDurability() / baseRepairCost)).shortValue());
             }
-            else if (plugin.getConfigurator().configAllowOverRepair() && hasPermission(players, RepairRecipeConfig.PERM_REPAIR_OVER)) {
-                durability = (short)(repairedItem.getDurability() - new Double(Math.ceil(ingotCost * costIngotPerDurability)).shortValue());
+            else if (ingotCost > 0 && plugin.getConfigurator().configAllowOverRepair() && hasPermission(players, RepairRecipeConfig.PERM_REPAIR_OVER)) {
+                durability = (short)(repairedItem.getDurability() - new Double(Math.ceil(ingotCost * repairedItem.getDurability() / baseRepairCost)).shortValue());
             }
-            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("New Durability: "+durability);
+            if (Math.abs(durability) > item.getMaxDurability()) {
+                durability = (short) (-1 * item.getMaxDurability());
+            }
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("New Durability: "+durability+" for "+ingotCost+" ingots");
             repairedItem.setDurability(durability);
             if (setInventory) {
                 if (ingotCost-1 > 0) {
