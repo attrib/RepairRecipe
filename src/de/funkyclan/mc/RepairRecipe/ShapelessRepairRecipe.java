@@ -1,10 +1,15 @@
 package de.funkyclan.mc.RepairRecipe;
 
+import net.minecraft.server.Packet103SetSlot;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.CraftingInventory;
+import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapelessRecipe;
 
@@ -150,10 +155,25 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
             }
             if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("New Durability: "+durability+" for "+ingotCost+" ingots");
             repairedItem.setDurability(durability);
+            new CraftItemStack(ingot);
             if (setInventory) {
                 if (ingotCost-1 > 0) {
                     ingotCost = ingotCost-1;
                     inventory.getItem(ingotIndex).setAmount(ingot.getAmount()-ingotCost);
+
+                    CraftItemStack craftItemStack = (CraftItemStack) ingot;
+
+                    RepairRecipe.logger.info(InventoryType.WORKBENCH.ordinal() + " ");
+                    for (HumanEntity entity : players) {
+                        if (entity instanceof CraftPlayer) {
+                            CraftPlayer player = (CraftPlayer) entity;
+//                            player.getHandle().netServerHandler.sendPacket(new Packet103SetSlot(0, ingotIndex, craftItemStack.getHandle()));
+//                            player.getHandle().netServerHandler.sendPacket(new Packet103SetSlot(1, ingotIndex, craftItemStack.getHandle()));
+//                            player.getHandle().netServerHandler.sendPacket(new Packet103SetSlot(1, 0, craftItemStack.getHandle()));
+                            player.getHandle().netServerHandler.sendPacket(new Packet103SetSlot(0, ingotIndex, CraftItemStack.createNMSItemStack(ingot)));
+                        }
+                    }
+
                 }
                 else if (ingotCost == 0) {
                     return null;
