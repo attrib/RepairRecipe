@@ -1,16 +1,15 @@
-Changelog
-=========
+# Changelog #
 
-v0.2.2
------------
+## v0.2.2 ##
 
 * Rewrote Repair cost formula
 * Added `use_highest_enchant` configuration
 * Changed `discount` to `discount_groups` and added `discount` as global configuration
 * Replaced configuration `keep_enchantments` with `keep_enchantments_chance` and `keep_enchantments_chance_groups`
 
-v0.2
------------
+**Configuration File gets updated automatically.**
+
+## v0.2 ##
 
 * Fixed Group Discount doesn't work correctly
 * Added Permission `RepairRecipe.repair.overRepair`
@@ -19,8 +18,7 @@ v0.2
 * Fixed Bug when repairing Items with Vault activated but no Permission Plugin
 * Fixed Bug when enabling Plugin without Vault
 
-v0.2-alpha1
------------
+## v0.2-alpha1 ##
 
 * Added Permissions `RepairRecipe.repair` and `RepairRecipe.repair.enchant`
 * Added OverRepair Configuration
@@ -29,12 +27,10 @@ v0.2-alpha1
 * Added Enchantment Multiplier Configuration
 
 
-v0.1.1
-------
+## v0.1.1 ##
 
 * Added Shears
 
-v0.1
-----
+## v0.1 ##
 
 * Initial Commit

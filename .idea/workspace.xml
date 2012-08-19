@@ -6,15 +6,10 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="e02dc4df-5e68-4098-97c7-9611160ac706" name="Default" comment="Fixed Bug when enabling Plugin without Vault">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/dictionaries/admin.xml" />
+    <list default="true" id="e02dc4df-5e68-4098-97c7-9611160ac706" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CHANGELOG.md" afterPath="$PROJECT_DIR$/CHANGELOG.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/config.yml" afterPath="$PROJECT_DIR$/resources/config.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/resources/plugin.yml" afterPath="$PROJECT_DIR$/resources/plugin.yml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java" afterPath="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/ShapelessRepairRecipe.java" afterPath="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/ShapelessRepairRecipe.java" />
     </list>
     <ignored path="RepairRecipe.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -117,19 +112,19 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="108" column="0" selection-start="4749" selection-end="4749" vertical-scroll-proportion="0.0">
+            <state line="19" column="46" selection-start="848" selection-end="848" vertical-scroll-proportion="0.55785835">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="CHANGELOG.md" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="CHANGELOG.md" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="6" column="0" selection-start="41" selection-end="316" vertical-scroll-proportion="0.1761658">
+            <state line="35" column="16" selection-start="1017" selection-end="1017" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -172,10 +167,10 @@
         <option value="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeListener.java" />
         <option value="$PROJECT_DIR$/resources/config.yml" />
         <option value="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/ShapelessRepairRecipe.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java" />
         <option value="$PROJECT_DIR$/resources/plugin.yml" />
         <option value="$PROJECT_DIR$/CHANGELOG.md" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -558,7 +553,11 @@
       <created>1345305914988</created>
       <updated>1345305914988</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="Rewrote Repair cost formula&#10;Added use_highest_enchant configuration&#10;Changed discount to discount_groups and added discount as global configuration&#10;Replaced configuration keep_enchantments with keep_enchantments_chance and keep_enchantments_chance_groups">
+      <created>1345363372171</created>
+      <updated>1345363372171</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -625,7 +624,7 @@
     <option name="SHOW_VCS_ERROR_NOTIFICATIONS" value="true" />
     <option name="FORCE_NON_EMPTY_COMMENT" value="false" />
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="false" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fixed Bug when enabling Plugin without Vault" />
+    <option name="LAST_COMMIT_MESSAGE" value="Rewrote Repair cost formula&#10;Added use_highest_enchant configuration&#10;Changed discount to discount_groups and added discount as global configuration&#10;Replaced configuration keep_enchantments with keep_enchantments_chance and keep_enchantments_chance_groups" />
     <option name="MAKE_NEW_CHANGELIST_ACTIVE" value="false" />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="false" />
     <option name="CHECK_FILES_UP_TO_DATE_BEFORE_COMMIT" value="false" />
@@ -650,6 +649,7 @@
     <MESSAGE value="Updated README" />
     <MESSAGE value="Fixed Bug when repairing Items with Vault activated but no Permission Plugin" />
     <MESSAGE value="Fixed Bug when enabling Plugin without Vault" />
+    <MESSAGE value="Rewrote Repair cost formula&#10;Added use_highest_enchant configuration&#10;Changed discount to discount_groups and added discount as global configuration&#10;Replaced configuration keep_enchantments with keep_enchantments_chance and keep_enchantments_chance_groups" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
@@ -688,13 +688,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="108" column="0" selection-start="4749" selection-end="4749" vertical-scroll-proportion="0.0">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/resources/plugin.yml">
       <provider selected="true" editor-type-id="text-editor">
         <state line="3" column="14" selection-start="96" selection-end="96" vertical-scroll-proportion="0.0">
@@ -718,7 +711,14 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="6" column="0" selection-start="41" selection-end="316" vertical-scroll-proportion="0.1761658">
+        <state line="35" column="16" selection-start="1017" selection-end="1017" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="19" column="46" selection-start="848" selection-end="848" vertical-scroll-proportion="0.55785835">
           <folding />
         </state>
       </provider>
