@@ -1,5 +1,7 @@
-package de.funkyclan.mc.RepairRecipe;
+package de.funkyclan.mc.RepairRecipe.Recipe;
 
+import de.funkyclan.mc.RepairRecipe.RepairRecipe;
+import de.funkyclan.mc.RepairRecipe.RepairRecipeConfig;
 import net.minecraft.server.Packet103SetSlot;
 import org.bukkit.Material;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
@@ -42,7 +44,7 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
         return "ShapelessRepairRecipe "+this.item.name();
     }
 
-    public boolean isMatrixRecipe(ItemStack[] matrix) {
+    public boolean checkIngredients(ItemStack[] matrix) {
         List<ItemStack> list = getIngredientList();
         int usedItems = 0;
         int matrixItems = 0;
@@ -92,7 +94,7 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
         if (ingot != null) {
             Map<Enchantment, Integer> enchantments = repairedItem.getEnchantments();
             boolean enchantPermission = hasPermission(players, RepairRecipeConfig.PERM_REPAIR_ENCHANT);
-            if (plugin.getConfigurator().configKeepEnchantments(players) < RepairRecipeConfig.Default.CONF_KEEP_ENCHANTS.getInt() || !enchantPermission) {
+            if (plugin.getConfigurator().configKeepEnchantments(players) < 100 || !enchantPermission) {
                 if (RepairRecipeConfig.DEBUG && enchantPermission) RepairRecipe.logger.info("Removing Enchantments of item.");
                 if (RepairRecipeConfig.DEBUG && !enchantPermission) RepairRecipe.logger.info("Removing Enchantments with a chance of "+plugin.getConfigurator().configKeepEnchantments(players)+" from  item.");
                 int chance = plugin.getConfigurator().configKeepEnchantments(players);
@@ -105,10 +107,10 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
                     }
                     // praise to the die god to keep your enchants
                     else {
-                        if (dieGod.nextInt(RepairRecipeConfig.Default.CONF_KEEP_ENCHANTS.getInt()) > chance) {
+                        if (dieGod.nextInt(100) > chance) {
                             repairedItem.removeEnchantment(ench);
                         }
-                        else if (dieGod.nextInt(RepairRecipeConfig.Default.CONF_KEEP_ENCHANTS.getInt()) > chance) {
+                        else if (dieGod.nextInt(100) > chance) {
                             int level = repairedItem.getEnchantmentLevel(ench);
                             repairedItem.removeEnchantment(ench);
                             repairedItem.addEnchantment(ench, dieGod.nextInt(level-1)+1);
@@ -143,6 +145,7 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
 
             int ingotCost = new Double(Math.ceil(baseRepairCost)).intValue();
             short durability = 0;
+
             if (ingot.getAmount() < ingotCost) {
                 ingotCost = ingot.getAmount();
                 durability = (short)(repairedItem.getDurability() - new Double(Math.ceil(ingotCost * repairedItem.getDurability() / baseRepairCost)).shortValue());
@@ -155,23 +158,14 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
             }
             if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("New Durability: "+durability+" for "+ingotCost+" ingots");
             repairedItem.setDurability(durability);
-            new CraftItemStack(ingot);
+
             if (setInventory) {
                 if (ingotCost-1 > 0) {
                     ingotCost = ingotCost-1;
                     inventory.getItem(ingotIndex).setAmount(ingot.getAmount()-ingotCost);
 
-                    CraftItemStack craftItemStack = (CraftItemStack) ingot;
-
-                    RepairRecipe.logger.info(InventoryType.WORKBENCH.ordinal() + " ");
                     for (HumanEntity entity : players) {
-                        if (entity instanceof CraftPlayer) {
-                            CraftPlayer player = (CraftPlayer) entity;
-//                            player.getHandle().netServerHandler.sendPacket(new Packet103SetSlot(0, ingotIndex, craftItemStack.getHandle()));
-//                            player.getHandle().netServerHandler.sendPacket(new Packet103SetSlot(1, ingotIndex, craftItemStack.getHandle()));
-//                            player.getHandle().netServerHandler.sendPacket(new Packet103SetSlot(1, 0, craftItemStack.getHandle()));
-                            player.getHandle().netServerHandler.sendPacket(new Packet103SetSlot(0, ingotIndex, CraftItemStack.createNMSItemStack(ingot)));
-                        }
+                        plugin.updateSlotInventory(entity, ingot, ingotIndex);
                     }
 
                 }
