@@ -1,5 +1,10 @@
 # Changelog #
 
+## v0.3 ##
+
+* Fixed Repaired Item is not getting updated, if only base item amount changed
+* Fixed base item amount is not getting updated, if repair costs more than one item
+
 ## v0.2.2 ##
 
 * Rewrote Repair cost formula

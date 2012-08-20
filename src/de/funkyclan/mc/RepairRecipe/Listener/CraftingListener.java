@@ -1,16 +1,18 @@
 package de.funkyclan.mc.RepairRecipe.Listener;
 
+import de.funkyclan.mc.RepairRecipe.Recipe.ShapelessRepairRecipe;
 import de.funkyclan.mc.RepairRecipe.RepairRecipe;
 import de.funkyclan.mc.RepairRecipe.RepairRecipeConfig;
-import de.funkyclan.mc.RepairRecipe.Recipe.ShapelessRepairRecipe;
-import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
-import org.bukkit.event.inventory.*;
+import org.bukkit.event.inventory.CraftItemEvent;
+import org.bukkit.event.inventory.InventoryClickEvent;
+import org.bukkit.event.inventory.InventoryType;
+import org.bukkit.event.inventory.PrepareItemCraftEvent;
 import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 

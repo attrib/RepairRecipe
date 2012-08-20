@@ -7,7 +7,6 @@ import org.bukkit.Material;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.HumanEntity;
-import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -92,10 +91,6 @@ public class RepairRecipe extends JavaPlugin {
 
         logger.info("[RepairRecipe] added "+ repairRecipes.size() +" Recipes for repair.");
         logger.info("[RepairRecipe] successfully loaded.");
-    }
-
-    public Set<ShapelessRepairRecipe> getRepairRecipes() {
-        return repairRecipes;
     }
 
     public ShapelessRepairRecipe getRepairRecipe(ItemStack itemStack) {

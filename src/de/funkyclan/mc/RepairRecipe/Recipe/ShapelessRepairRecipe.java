@@ -2,16 +2,11 @@ package de.funkyclan.mc.RepairRecipe.Recipe;
 
 import de.funkyclan.mc.RepairRecipe.RepairRecipe;
 import de.funkyclan.mc.RepairRecipe.RepairRecipeConfig;
-import net.minecraft.server.Packet103SetSlot;
 import org.bukkit.Material;
-import org.bukkit.craftbukkit.entity.CraftPlayer;
-import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.CraftingInventory;
-import org.bukkit.inventory.Inventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapelessRecipe;
 
