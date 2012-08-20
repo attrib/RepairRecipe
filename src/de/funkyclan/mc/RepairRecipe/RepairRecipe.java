@@ -1,6 +1,14 @@
 package de.funkyclan.mc.RepairRecipe;
 
+import de.funkyclan.mc.RepairRecipe.Listener.CraftingListener;
+import de.funkyclan.mc.RepairRecipe.Recipe.ShapelessRepairRecipe;
+import net.minecraft.server.Packet103SetSlot;
 import org.bukkit.Material;
+import org.bukkit.craftbukkit.entity.CraftPlayer;
+import org.bukkit.craftbukkit.inventory.CraftItemStack;
+import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.HashSet;
@@ -16,7 +24,7 @@ public class RepairRecipe extends JavaPlugin {
 
     public void onEnable() {
 
-        getServer().getPluginManager().registerEvents(new RepairRecipeListener(this), this);
+        getServer().getPluginManager().registerEvents(new CraftingListener(this), this);
 
         repairRecipes = new HashSet<ShapelessRepairRecipe>();
 
@@ -90,8 +98,32 @@ public class RepairRecipe extends JavaPlugin {
         return repairRecipes;
     }
 
+    public ShapelessRepairRecipe getRepairRecipe(ItemStack itemStack) {
+        for (ShapelessRepairRecipe recipe : repairRecipes) {
+            if (recipe.getResult().getType().equals(itemStack.getType())) {
+                return recipe;
+            }
+        }
+        return null;
+    }
+
     public RepairRecipeConfig getConfigurator() {
         return config;
+    }
+
+    public void updateSlotInventory(HumanEntity player, ItemStack item, int index) {
+        if (player instanceof CraftPlayer && item instanceof CraftItemStack) {
+            CraftPlayer craftPlayer = (CraftPlayer) player;
+            CraftItemStack craftItemStack = (CraftItemStack) item;
+            if (craftPlayer.getHandle().activeContainer != null) {
+                Packet103SetSlot packet = new Packet103SetSlot();
+                packet.a = craftPlayer.getHandle().activeContainer.windowId;
+                packet.b = index;
+                packet.c = craftItemStack.getHandle();
+
+                craftPlayer.getHandle().netServerHandler.sendPacket(packet);
+            }
+        }
     }
 
 }

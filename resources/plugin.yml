@@ -1,7 +1,7 @@
 author: attrib
 name: RepairRecipe
 main: de.funkyclan.mc.RepairRecipe.RepairRecipe
-version: 0.2.2
+version: 0.x-updateIssueBranch
 softdepend: [Vault]
 
 permissions:
