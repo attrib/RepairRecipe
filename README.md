@@ -95,8 +95,8 @@ use_highest_enchant: false # or true
 
 ### `discount` ###
 With this option you can set discounts for the repair price. Its like the 10% bonus repair with the Minecraft repair function.
-A discount of 100 means it only costs one base item whatever the durability of the item is.
-If you turned on over repair the item will have a durability of 200% with discount 100. Use something like 80 to avoid this most of the time.
+A discount of 100 means it costs nothing. Even if over repair is activated it only repairs to 100%. One base item is still needed to activate the repair, but you get it back afterwards.
+With a discount of 99 it will costs 1 base item, but with over repair activated it will always get to a durability of 200%.
 ```
 discount: 10 # value between 0 (no discount) to 100 (one base item)
 discount_groups: {}
@@ -106,7 +106,7 @@ Like most of the settings you can set this for each permission group, if vault i
 ```
 discount: 10 # around 14 diamonds for a pick axe with a level 4 enchantment (multiplier 100)
 discount:
-  Sponsor: 25 # around 5 diamonds for a pick axe with a level 4 enchantment (multiplier 20)
+  Sponsor: 25 # around 4 diamonds for a pick axe with a level 4 enchantment (multiplier 20)
 ```
 
 

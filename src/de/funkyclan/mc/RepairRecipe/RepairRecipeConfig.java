@@ -244,7 +244,7 @@ public class RepairRecipeConfig {
         if (permission == null || groups == 0 || discountGroups.size() == 0) {
             int discount = plugin.getConfig().getInt("discount", Default.CONF_DISCOUNT.getInt());
             if (discount >= 100) {
-                return 0.001;
+                return 0.0;
             }
             return 1.0-(discount/100.0);
         }
@@ -258,7 +258,7 @@ public class RepairRecipeConfig {
             discount = plugin.getConfig().getInt("discount", Default.CONF_DISCOUNT.getInt());
         }
         if (discount >= 100) {
-            return 0.001;
+            return 0.0;
         }
         return 1.0-(discount/100.0);
     }

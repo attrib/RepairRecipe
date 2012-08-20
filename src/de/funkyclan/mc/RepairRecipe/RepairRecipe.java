@@ -107,9 +107,15 @@ public class RepairRecipe extends JavaPlugin {
     }
 
     public void updateSlotInventory(HumanEntity player, ItemStack item, int index) {
-        if (player instanceof CraftPlayer && item instanceof CraftItemStack) {
+        CraftItemStack craftItemStack;
+        if (item instanceof CraftItemStack) {
+            craftItemStack = (CraftItemStack) item;
+        }
+        else {
+            craftItemStack = new CraftItemStack(item);
+        }
+        if (player instanceof CraftPlayer) {
             CraftPlayer craftPlayer = (CraftPlayer) player;
-            CraftItemStack craftItemStack = (CraftItemStack) item;
             if (craftPlayer.getHandle().activeContainer != null) {
                 Packet103SetSlot packet = new Packet103SetSlot();
                 packet.a = craftPlayer.getHandle().activeContainer.windowId;

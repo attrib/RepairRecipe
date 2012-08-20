@@ -84,7 +84,10 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
         }
 
         if (repairedItem == null) {
-            repairedItem = inventory.getResult();
+            repairedItem = inventory.getResult().clone();
+        }
+        if (repairedItem.getDurability() <= 0) {
+            return null;
         }
         if (ingot != null) {
             Map<Enchantment, Integer> enchantments = repairedItem.getEnchantments();
@@ -128,6 +131,7 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
                     }
                 }
             }
+
             double baseRepairCost = (double) repairedItem.getDurability()/((item.getMaxDurability()/this.ingotCost));
             if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("baseRepairCost: "+baseRepairCost);
 
@@ -155,16 +159,25 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
             repairedItem.setDurability(durability);
 
             if (setInventory) {
-                if (ingotCost-1 > 0) {
-                    ingotCost = ingotCost-1;
-                    inventory.getItem(ingotIndex).setAmount(ingot.getAmount()-ingotCost);
+                ingotCost = ingotCost-1;
+                if (ingotCost > 0) {
+                    ingot.setAmount(ingot.getAmount() - ingotCost);
+                    if (ingot.getAmount() <= 1) {
+                        ingot.setAmount(0);
+                    }
 
                     for (HumanEntity entity : players) {
                         plugin.updateSlotInventory(entity, ingot, ingotIndex);
                     }
 
                 }
-                else if (ingotCost == 0) {
+                else if (ingotCost == -1 && discount == 0.0) {
+                    ingot.setAmount(ingot.getAmount()+1);
+                    for (HumanEntity entity : players) {
+                        plugin.updateSlotInventory(entity, ingot, ingotIndex);
+                    }
+                }
+                else if (ingotCost < 0) {
                     return null;
                 }
             }

@@ -4,6 +4,9 @@
 
 * Fixed Repaired Item is not getting updated, if only base item amount changed
 * Fixed base item amount is not getting updated, if repair costs more than one item
+* Fixed base item doesn't disappear, if repair costs is exactly base item amount
+* Added possibility for free repairs
+* Changed discount of 100 means its free as in free beer ;)
 
 ## v0.2.2 ##
 
