@@ -6,9 +6,9 @@ __This Readme is for the BetaBuild.__
 
 __Stable Version 0.2.2 (See [Bukkit plugin page](http://dev.bukkit.org/server-mods/repairrecipe/))__
 
-Beta Version 0.3
+Beta Version 0.3.1
 
-Compatible Bukkit Version: 1.2.5-R5.0, 1.3.1-R1.0, 1.3.2-R2.0
+Compatible Bukkit Version: 1.3.1-R1.0, 1.3.2-R2.0
 
 This Plugin allows you to repair armour/weapons/tools with the base item needed to craft the item and keep the enchantments.
 Costs depend on damage of the item, amount of base items needed to craft the item and the level of the enchantments.

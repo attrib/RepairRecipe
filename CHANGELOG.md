@@ -1,5 +1,9 @@
 # Changelog #
 
+## v0.3.1 ##
+
+* Fixed NPE when adding new item to a empty slot in the grid to a already working repair recipe
+
 ## v0.3 ##
 
 * Fixed Repaired Item is not getting updated, if only base item amount changed

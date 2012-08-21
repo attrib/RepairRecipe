@@ -3,6 +3,7 @@ package de.funkyclan.mc.RepairRecipe.Listener;
 import de.funkyclan.mc.RepairRecipe.Recipe.ShapelessRepairRecipe;
 import de.funkyclan.mc.RepairRecipe.RepairRecipe;
 import de.funkyclan.mc.RepairRecipe.RepairRecipeConfig;
+import org.bukkit.Material;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -88,6 +89,9 @@ public class CraftingListener implements Listener {
                 }
 
                 ItemStack item = matrix[event.getRawSlot()-1];
+                if (item.getType().equals(Material.AIR)) {
+                    item = event.getCursor().clone();
+                }
                 if (event.isRightClick()) {
                     item.setAmount(item.getAmount()+1);
                 }
