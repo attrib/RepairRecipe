@@ -1,5 +1,9 @@
 # Changelog #
 
+## v0.2.3 ##
+
+* Fixed repair costs with `use_highest_enchant: true`
+
 ## v0.2.2 ##
 
 * Rewrote Repair cost formula

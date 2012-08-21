@@ -2,7 +2,7 @@
 
 See also Bukkit plugin page: http://dev.bukkit.org/server-mods/repairrecipe/
 
-Version 0.2.2
+Version 0.2.3
 
 Compatible Bukkit Version: 1.2.5-R5.0, 1.3.1-R1.0
 

@@ -112,10 +112,11 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
                 }
             }
             int enchantLevel = 0;
-            if (plugin.getConfigurator().configUseHighestEnchant()) {
-                enchantLevel = Integer.MIN_VALUE;
-            }
+
             if (enchantments.size() > 0) {
+                if (plugin.getConfigurator().configUseHighestEnchant()) {
+                    enchantLevel = Integer.MIN_VALUE;
+                }
                 boolean highestEnchant = plugin.getConfigurator().configUseHighestEnchant();
                 for (Enchantment ench : enchantments.keySet()) {
                     if (highestEnchant) {
