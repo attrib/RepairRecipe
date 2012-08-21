@@ -12,6 +12,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.logging.Logger;
@@ -36,6 +37,13 @@ public class RepairRecipe extends JavaPlugin {
             logger.info("[RepairRecipe] no recipes found, disabling plugin.");
             getServer().getPluginManager().disablePlugin(this);
             return;
+        }
+
+        try {
+            MetricsLite metrics = new MetricsLite(this);
+            metrics.start();
+        } catch (IOException e) {
+            // Failed to submit the stats :-(
         }
 
         logger.info("[RepairRecipe] added "+ repairRecipes.size() +" Recipes for repair.");
