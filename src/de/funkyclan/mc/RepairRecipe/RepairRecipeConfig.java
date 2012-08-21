@@ -4,10 +4,15 @@ import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.permission.Permission;
 import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
+import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
 
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -22,12 +27,16 @@ public class RepairRecipeConfig {
     private HashMap<String, Integer> discountGroups;
     private HashMap<String, Integer> enchantMultiplierGroups;
     private HashMap<String, Integer> enchantChanceGroups;
+    private HashMap<Enchantment, Integer> specialEnchantMultiplier;
+
+    private FileConfiguration itemConfig = null;
+    private File itemConfigurationFile = null;
 
     public static final String PERM_REPAIR         = "RepairRecipe.repair";
     public static final String PERM_REPAIR_ENCHANT = "RepairRecipe.repair.enchant";
     public static final String PERM_REPAIR_OVER    = "RepairRecipe.repair.overRepair";
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     public enum Default {
         PERM_REPAIR (true),
@@ -106,6 +115,18 @@ public class RepairRecipeConfig {
         if (enchantChanceSection != null) {
             for (String group : enchantChanceSection.getKeys(false)) {
                 enchantChanceGroups.put(group, enchantChanceSection.getInt(group, enchantChance));
+            }
+        }
+
+        ConfigurationSection specialEnchantMultiplierSection = plugin.getConfig().getConfigurationSection("special_enchant_multiplier");
+        specialEnchantMultiplier = new HashMap<Enchantment, Integer>();
+        if (specialEnchantMultiplierSection != null) {
+            for (String enchantment : specialEnchantMultiplierSection.getKeys(false)) {
+                Enchantment ench = Enchantment.getByName(enchantment.toUpperCase());
+RepairRecipe.logger.info("Add "+ench);
+                if (ench != null) {
+                    specialEnchantMultiplier.put(ench, specialEnchantMultiplierSection.getInt(enchantment, 100));
+                }
             }
         }
     }
@@ -276,4 +297,62 @@ public class RepairRecipeConfig {
         return discount;
     }
 
+    public double configSpecialEnchantMultiplier(Enchantment enchantment) {
+        RepairRecipe.logger.info("Special costs of "+enchantment);
+        if (specialEnchantMultiplier.containsKey(enchantment)) {
+            int multiplier = specialEnchantMultiplier.get(enchantment);
+            if (multiplier < 0) {
+                return 0.0;
+            }
+            if (multiplier > 200) {
+                return 2.0;
+            }
+            return multiplier/100;
+        }
+        else {
+            return 1.0;
+        }
+    }
+
+    public void reloadItemConfig() {
+        if (itemConfigurationFile == null) {
+            itemConfigurationFile = new File(plugin.getDataFolder(), "items.yml");
+            if (!itemConfigurationFile.exists()) {
+                itemConfig = YamlConfiguration.loadConfiguration(itemConfigurationFile);
+                InputStream defConfigStream = plugin.getResource("items.yml");
+                if (defConfigStream != null) {
+                    YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+                    itemConfig.setDefaults(defConfig);
+                }
+                itemConfig.options().copyDefaults(true);
+                saveItemConfig();
+            }
+        }
+        itemConfig = YamlConfiguration.loadConfiguration(itemConfigurationFile);
+
+        InputStream defConfigStream = plugin.getResource("items.yml");
+        if (defConfigStream != null) {
+            YamlConfiguration defConfig = YamlConfiguration.loadConfiguration(defConfigStream);
+            itemConfig.setDefaults(defConfig);
+        }
+    }
+
+    public FileConfiguration getItemConfig() {
+        if (itemConfig == null) {
+            reloadItemConfig();
+        }
+        return itemConfig;
+    }
+
+    public void saveItemConfig() {
+        if (itemConfig == null || itemConfigurationFile == null) {
+            return;
+        }
+        try {
+            itemConfig.save(itemConfigurationFile);
+        }
+        catch (IOException exception) {
+            RepairRecipe.logger.severe("[RepairRecipe] Error on saving item configuration.");
+        }
+    }
 }

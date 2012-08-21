@@ -1,5 +1,7 @@
 author: attrib
 name: RepairRecipe
+description: Repair your items with the item you need to craft and keep enchantments.
+website: http://dev.bukkit.org/server-mods/repairrecipe/
 main: de.funkyclan.mc.RepairRecipe.RepairRecipe
 version: 0.3-beta
 softdepend: [Vault]

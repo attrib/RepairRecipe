@@ -1,5 +1,11 @@
 # Changelog #
 
+## v0.3.2 ##
+
+* Fixed repair costs with use_highest_enchant: true
+* Added base item configuration
+* Added special enchant multiplier
+
 ## v0.3.1 ##
 
 * Fixed NPE when adding new item to a empty slot in the grid to a already working repair recipe

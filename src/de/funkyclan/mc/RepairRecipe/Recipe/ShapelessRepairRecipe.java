@@ -10,6 +10,7 @@ import org.bukkit.inventory.CraftingInventory;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.ShapelessRecipe;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
@@ -20,6 +21,7 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
     private Material ingot;
     private int ingotCost;
     private RepairRecipe plugin;
+    private Map<String, String> config;
 
     public ShapelessRepairRecipe(Material item, Material ingot, int ingotCost, RepairRecipe plugin) {
         super(new ItemStack(item));
@@ -33,6 +35,85 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
         this.ingotCost = ingotCost;
 
         this.plugin = plugin;
+
+        this.config = new HashMap<String, String>();
+    }
+
+    public void setConfig(String key, String value) {
+        if (value != null && !value.toLowerCase().equals("default")) {
+            this.config.put(key, value);
+        }
+    }
+
+    public String getConfig(String key) {
+        if (this.config.containsKey(key)) {
+            return this.config.get(key);
+        }
+        else {
+            return null;
+        }
+    }
+
+    private int getKeepEnchantmentsChance(List<HumanEntity> players) {
+        String tmp = getConfig("keep_enchantments_chance");
+        if (tmp != null) {
+            try {
+                return Integer.parseInt(tmp);
+            }
+            catch (NumberFormatException exception) {
+                RepairRecipe.logger.info("[RepairRecipe] item.yml: not a number keep enchantments chance");
+            }
+        }
+        return plugin.getConfigurator().configKeepEnchantments(players);
+    }
+
+    private double getEnchantMultiplier(List<HumanEntity> players) {
+        String tmp = getConfig("enchant_multiplier");
+        if (tmp != null) {
+            try {
+                int multiplier = Integer.parseInt(tmp);
+                if (multiplier <= 0) {
+                    return 0.0;
+                }
+                if (multiplier >= 200) {
+                    return 2.0;
+                }
+                return (multiplier/100.0);
+            }
+            catch (NumberFormatException exception) {
+                RepairRecipe.logger.info("[RepairRecipe] item.yml: not a number keep enchantments chance");
+            }
+        }
+        return plugin.getConfigurator().configMaxEnchantMultiplier(players);
+    }
+
+    private boolean getUseHighestEnchant() {
+        String tmp = getConfig("use_highest_enchant");
+        if (tmp != null) {
+            if (tmp.toLowerCase().equals("true")) {
+                return true;
+            }
+            else if (tmp.toLowerCase().equals("false")) {
+                return false;
+            }
+        }
+        return plugin.getConfigurator().configUseHighestEnchant();
+    }
+
+    private boolean getAllowOverRepair(List<HumanEntity> players) {
+        if (hasPermission(players, RepairRecipeConfig.PERM_REPAIR_OVER)) {
+            String tmp = getConfig("allow_over_repair");
+            if (tmp != null) {
+                if (tmp.toLowerCase().equals("true")) {
+                    return true;
+                }
+                else if (tmp.toLowerCase().equals("false")) {
+                    return false;
+                }
+            }
+            return plugin.getConfigurator().configAllowOverRepair();
+        }
+        return false;
     }
 
     public String toString() {
@@ -92,10 +173,10 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
         if (ingot != null) {
             Map<Enchantment, Integer> enchantments = repairedItem.getEnchantments();
             boolean enchantPermission = hasPermission(players, RepairRecipeConfig.PERM_REPAIR_ENCHANT);
-            if (plugin.getConfigurator().configKeepEnchantments(players) < 100 || !enchantPermission) {
+            if (getKeepEnchantmentsChance(players) < 100 || !enchantPermission) {
                 if (RepairRecipeConfig.DEBUG && enchantPermission) RepairRecipe.logger.info("Removing Enchantments of item.");
-                if (RepairRecipeConfig.DEBUG && !enchantPermission) RepairRecipe.logger.info("Removing Enchantments with a chance of "+plugin.getConfigurator().configKeepEnchantments(players)+" from  item.");
-                int chance = plugin.getConfigurator().configKeepEnchantments(players);
+                if (RepairRecipeConfig.DEBUG && !enchantPermission) RepairRecipe.logger.info("Removing Enchantments with a chance of "+getKeepEnchantmentsChance(players)+" from  item.");
+                int chance = getKeepEnchantmentsChance(players);
                 Random dieGod = new Random();
                 for (Enchantment ench : enchantments.keySet()) {
                     // player don't has permission to keep enchants, remove all enchantments
@@ -116,18 +197,19 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
                     }
                 }
             }
-            int enchantLevel = 0;
-            if (plugin.getConfigurator().configUseHighestEnchant()) {
-                enchantLevel = Integer.MIN_VALUE;
-            }
+            double enchantLevel = 0;
+
             if (enchantments.size() > 0) {
-                boolean highestEnchant = plugin.getConfigurator().configUseHighestEnchant();
+                boolean highestEnchant = getUseHighestEnchant();
+                if (highestEnchant) {
+                    enchantLevel = Integer.MIN_VALUE;
+                }
                 for (Enchantment ench : enchantments.keySet()) {
                     if (highestEnchant) {
-                        enchantLevel = Math.max(enchantLevel, repairedItem.getEnchantmentLevel(ench));
+                        enchantLevel = Math.max(enchantLevel, repairedItem.getEnchantmentLevel(ench)*plugin.getConfigurator().configSpecialEnchantMultiplier(ench));
                     }
                     else {
-                        enchantLevel += repairedItem.getEnchantmentLevel(ench);
+                        enchantLevel += repairedItem.getEnchantmentLevel(ench)*plugin.getConfigurator().configSpecialEnchantMultiplier(ench);
                     }
                 }
             }
@@ -135,8 +217,8 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
             double baseRepairCost = (double) repairedItem.getDurability()/((item.getMaxDurability()/this.ingotCost));
             if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("baseRepairCost: "+baseRepairCost);
 
-            baseRepairCost += baseRepairCost * plugin.getConfigurator().configMaxEnchantMultiplier(players) * enchantLevel;
-            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("baseRepairCost+enchantMulti: "+baseRepairCost + " (EnchantMulti: "+plugin.getConfigurator().configMaxEnchantMultiplier(players)+", EnchantLevel: "+ enchantLevel +")");
+            baseRepairCost += baseRepairCost * getEnchantMultiplier(players) * enchantLevel;
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("baseRepairCost+enchantMulti: "+baseRepairCost + " (EnchantMulti: "+getEnchantMultiplier(players)+", EnchantLevel: "+ enchantLevel +")");
 
             double discount = plugin.getConfigurator().configDiscount(players);
             baseRepairCost = baseRepairCost * discount;
@@ -149,7 +231,7 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
                 ingotCost = ingot.getAmount();
                 durability = (short)(repairedItem.getDurability() - new Double(Math.ceil(ingotCost * repairedItem.getDurability() / baseRepairCost)).shortValue());
             }
-            else if (ingotCost > 0 && plugin.getConfigurator().configAllowOverRepair() && hasPermission(players, RepairRecipeConfig.PERM_REPAIR_OVER)) {
+            else if (ingotCost > 0 && getAllowOverRepair(players)) {
                 durability = (short)(repairedItem.getDurability() - new Double(Math.ceil(ingotCost * repairedItem.getDurability() / baseRepairCost)).shortValue());
             }
             if (Math.abs(durability) > item.getMaxDurability()) {

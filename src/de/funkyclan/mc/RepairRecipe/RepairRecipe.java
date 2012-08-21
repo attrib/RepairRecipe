@@ -4,9 +4,11 @@ import de.funkyclan.mc.RepairRecipe.Listener.CraftingListener;
 import de.funkyclan.mc.RepairRecipe.Recipe.ShapelessRepairRecipe;
 import net.minecraft.server.Packet103SetSlot;
 import org.bukkit.Material;
+import org.bukkit.configuration.ConfigurationSection;
 import org.bukkit.craftbukkit.entity.CraftPlayer;
 import org.bukkit.craftbukkit.inventory.CraftItemStack;
 import org.bukkit.entity.HumanEntity;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -25,69 +27,16 @@ public class RepairRecipe extends JavaPlugin {
 
         getServer().getPluginManager().registerEvents(new CraftingListener(this), this);
 
-        repairRecipes = new HashSet<ShapelessRepairRecipe>();
-
-        repairRecipes.add(new ShapelessRepairRecipe(Material.CHAINMAIL_BOOTS, Material.IRON_INGOT, 2, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.CHAINMAIL_CHESTPLATE, Material.IRON_INGOT, 4, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.CHAINMAIL_HELMET, Material.IRON_INGOT, 2, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.CHAINMAIL_LEGGINGS, Material.IRON_INGOT, 3, this));
-
-        repairRecipes.add(new ShapelessRepairRecipe(Material.LEATHER_BOOTS, Material.LEATHER, 4, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.LEATHER_CHESTPLATE, Material.LEATHER, 8, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.LEATHER_HELMET, Material.LEATHER, 5, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.LEATHER_LEGGINGS, Material.LEATHER, 7, this));
-
-        repairRecipes.add(new ShapelessRepairRecipe(Material.STONE_AXE, Material.COBBLESTONE, 3, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.STONE_HOE, Material.COBBLESTONE, 2, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.STONE_PICKAXE, Material.COBBLESTONE, 3, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.STONE_SPADE, Material.COBBLESTONE, 1, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.STONE_SWORD, Material.COBBLESTONE, 2, this));
-
-        repairRecipes.add(new ShapelessRepairRecipe(Material.WOOD_AXE, Material.WOOD, 3, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.WOOD_HOE, Material.WOOD, 2, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.WOOD_PICKAXE, Material.WOOD, 3, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.WOOD_SPADE, Material.WOOD, 1, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.WOOD_SWORD, Material.WOOD, 2, this));
-
-        repairRecipes.add(new ShapelessRepairRecipe(Material.IRON_AXE, Material.IRON_INGOT, 3, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.IRON_BOOTS, Material.IRON_INGOT, 4, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.IRON_CHESTPLATE, Material.IRON_INGOT, 8, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.IRON_HELMET, Material.IRON_INGOT, 5, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.IRON_HOE, Material.IRON_INGOT, 2, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.IRON_LEGGINGS, Material.IRON_INGOT, 7, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.IRON_PICKAXE, Material.IRON_INGOT, 3, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.IRON_SPADE, Material.IRON_INGOT, 1, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.IRON_SWORD, Material.IRON_INGOT, 2, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.SHEARS, Material.IRON_INGOT, 1, this));
-
-        repairRecipes.add(new ShapelessRepairRecipe(Material.GOLD_AXE, Material.GOLD_INGOT, 3, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.GOLD_BOOTS, Material.GOLD_INGOT, 4, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.GOLD_CHESTPLATE, Material.GOLD_INGOT, 8, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.GOLD_HELMET, Material.GOLD_INGOT, 5, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.GOLD_HOE, Material.GOLD_INGOT, 2, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.GOLD_LEGGINGS, Material.GOLD_INGOT, 7, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.GOLD_PICKAXE, Material.GOLD_INGOT, 3, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.GOLD_SPADE, Material.GOLD_INGOT, 1, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.GOLD_SWORD, Material.GOLD_INGOT, 2, this));
-
-        repairRecipes.add(new ShapelessRepairRecipe(Material.DIAMOND_AXE, Material.DIAMOND, 3, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.DIAMOND_BOOTS, Material.DIAMOND, 4, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.DIAMOND_CHESTPLATE, Material.DIAMOND, 8, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.DIAMOND_HELMET, Material.DIAMOND, 5, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.DIAMOND_HOE, Material.DIAMOND, 2, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.DIAMOND_LEGGINGS, Material.DIAMOND, 7, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.DIAMOND_PICKAXE, Material.DIAMOND, 3, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.DIAMOND_SPADE, Material.DIAMOND, 1, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.DIAMOND_SWORD, Material.DIAMOND, 2, this));
-
-        repairRecipes.add(new ShapelessRepairRecipe(Material.BOW, Material.STRING, 2, this));
-        repairRecipes.add(new ShapelessRepairRecipe(Material.FISHING_ROD, Material.STRING, 2, this));
-
-        for (ShapelessRepairRecipe recipe : repairRecipes) {
-            getServer().addRecipe(recipe);
-        }
-
         config = new RepairRecipeConfig(this);
+
+        repairRecipes = new HashSet<ShapelessRepairRecipe>();
+        addRecipes();
+
+        if (repairRecipes.size() == 0) {
+            logger.info("[RepairRecipe] no recipes found, disabling plugin.");
+            getServer().getPluginManager().disablePlugin(this);
+            return;
+        }
 
         logger.info("[RepairRecipe] added "+ repairRecipes.size() +" Recipes for repair.");
         logger.info("[RepairRecipe] successfully loaded.");
@@ -124,6 +73,39 @@ public class RepairRecipe extends JavaPlugin {
 
                 craftPlayer.getHandle().netServerHandler.sendPacket(packet);
             }
+        }
+    }
+
+    private void addRecipes() {
+        for(String key : config.getItemConfig().getKeys(false)) {
+            Material item = Material.matchMaterial(key);
+            if (item == null) {
+                logger.info("[RepairRecipe] unknown item "+key);
+                continue;
+            }
+            ConfigurationSection section = config.getItemConfig().getConfigurationSection(key);
+
+            Material baseItem = Material.matchMaterial(section.getString("base_item"));
+            if (baseItem == null) {
+                logger.info("[RepairRecipe] unknown base item "+section.getString("base_item"));
+                continue;
+            }
+
+            int baseAmount = section.getInt("base_amount");
+
+            ShapelessRepairRecipe recipe = new ShapelessRepairRecipe(item, baseItem, baseAmount, this);
+
+            recipe.setConfig("keep_enchantments_chance", section.getString("keep_enchantments_chance", null));
+            recipe.setConfig("enchant_multiplier", section.getString("enchant_multiplier", null));
+
+            recipe.setConfig("allow_over_repair", section.getString("allow_over_repair", null));
+            recipe.setConfig("use_highest_enchant", section.getString("use_highest_enchant", null));
+
+            repairRecipes.add(recipe);
+
+            getServer().addRecipe(recipe);
+
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Added " +item+ " with " +baseAmount+ "x" +baseItem);
         }
     }
 

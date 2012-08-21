@@ -6,3 +6,4 @@ enchant_multiplier_groups: {}
 discount: 10
 discount_groups: {}
 use_highest_enchant: false
+special_enchant_multiplier: {}
