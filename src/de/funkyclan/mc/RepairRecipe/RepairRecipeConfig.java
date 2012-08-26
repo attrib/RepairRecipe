@@ -181,6 +181,13 @@ RepairRecipe.logger.info("Add "+ench);
         }
     }
 
+    public boolean isPermissionSystemActive() {
+        if (permission == null) {
+            return false;
+        }
+        return true;
+    }
+
     public boolean configAllowOverRepair() {
         if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("allow_over_repair: "+plugin.getConfig().getBoolean("allow_over_repair", Default.CONF_ALLOW_OVER_REPAIR.getBoolean()));
         return plugin.getConfig().getBoolean("allow_over_repair", Default.CONF_ALLOW_OVER_REPAIR.getBoolean());

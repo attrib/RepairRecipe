@@ -101,7 +101,7 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
     }
 
     private boolean getAllowOverRepair(List<HumanEntity> players) {
-        if (hasPermission(players, RepairRecipeConfig.PERM_REPAIR_OVER)) {
+        if (hasPermission(players, RepairRecipeConfig.PERM_REPAIR_OVER) || !plugin.getConfigurator().isPermissionSystemActive()) {
             String tmp = getConfig("allow_over_repair");
             if (tmp != null) {
                 if (tmp.toLowerCase().equals("true")) {

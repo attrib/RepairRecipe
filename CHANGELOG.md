@@ -1,5 +1,11 @@
 # Changelog #
 
+## v0.3.3 ##
+
+* Added Metrics - http://mcstats.org/
+* Fixed Bow base_amount
+* Fixed allow_over_repair needs plugin system
+
 ## v0.3.2 ##
 
 * Fixed repair costs with use_highest_enchant: true
