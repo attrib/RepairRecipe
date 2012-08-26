@@ -145,7 +145,7 @@ diamond_sword:
 
 bow:
     base_item: string
-    base_amount: 2
+    base_amount: 3
 fishing_rod:
     base_item: string
     base_amount: 2
