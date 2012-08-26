@@ -35,13 +35,15 @@ public class RepairRecipeConfig {
     public static final String PERM_REPAIR         = "RepairRecipe.repair";
     public static final String PERM_REPAIR_ENCHANT = "RepairRecipe.repair.enchant";
     public static final String PERM_REPAIR_OVER    = "RepairRecipe.repair.overRepair";
+    public static final String PERM_ADMIN          = "RepairRecipe.admin";
 
-    public static final boolean DEBUG = true;
+    public static boolean DEBUG = false;
 
     public enum Default {
         PERM_REPAIR (true),
         PERM_REPAIR_ENCHANT (true),
         PERM_REPAIR_OVER (false),
+        PERM_ADMIN (false),
 
         CONF_ALLOW_OVER_REPAIR (false),
         CONF_KEEP_ENCHANTS (100),
@@ -91,44 +93,8 @@ public class RepairRecipeConfig {
         plugin.getConfig().options().copyDefaults(true);
         plugin.saveConfig();
 
-        ConfigurationSection discountSection = plugin.getConfig().getConfigurationSection("discount_groups");
-        discountGroups = new HashMap<String, Integer>();
-        int discount = plugin.getConfig().getInt("discount", Default.CONF_DISCOUNT.getInt());
-        if (discountSection != null) {
-            for (String group : discountSection.getKeys(false)) {
-                discountGroups.put(group, discountSection.getInt(group, discount));
-            }
-        }
+        reloadConfig();
 
-        int enchantMultiplier = plugin.getConfig().getInt("enchant_multiplier", Default.CONF_MAX_ENCHANT_MULTIPLIER.getInt());
-        ConfigurationSection enchantMultiplierSection = plugin.getConfig().getConfigurationSection("enchant_multiplier_groups");
-        enchantMultiplierGroups = new HashMap<String, Integer>();
-        if (enchantMultiplierSection != null) {
-            for (String group : enchantMultiplierSection.getKeys(false)) {
-                enchantMultiplierGroups.put(group, enchantMultiplierSection.getInt(group, enchantMultiplier));
-            }
-        }
-
-        int enchantChance = plugin.getConfig().getInt("keep_enchantments_chance", Default.CONF_HIGHEST_ENCHANT.getInt());
-        ConfigurationSection enchantChanceSection = plugin.getConfig().getConfigurationSection("keep_enchantments_chance_groups");
-        enchantChanceGroups = new HashMap<String, Integer>();
-        if (enchantChanceSection != null) {
-            for (String group : enchantChanceSection.getKeys(false)) {
-                enchantChanceGroups.put(group, enchantChanceSection.getInt(group, enchantChance));
-            }
-        }
-
-        ConfigurationSection specialEnchantMultiplierSection = plugin.getConfig().getConfigurationSection("special_enchant_multiplier");
-        specialEnchantMultiplier = new HashMap<Enchantment, Integer>();
-        if (specialEnchantMultiplierSection != null) {
-            for (String enchantment : specialEnchantMultiplierSection.getKeys(false)) {
-                Enchantment ench = Enchantment.getByName(enchantment.toUpperCase());
-RepairRecipe.logger.info("Add "+ench);
-                if (ench != null) {
-                    specialEnchantMultiplier.put(ench, specialEnchantMultiplierSection.getInt(enchantment, 100));
-                }
-            }
-        }
     }
 
     private void changeConfig0_2_1() {
@@ -174,28 +140,24 @@ RepairRecipe.logger.info("Add "+ench);
             return Default.PERM_REPAIR_ENCHANT.getBoolean();
         }
         else if (permissionString.equals(PERM_REPAIR_OVER)) {
+            if (!Default.PERM_REPAIR_OVER.getBoolean() && configAllowOverRepair()) {
+                return true;
+            }
             return Default.PERM_REPAIR_OVER.getBoolean();
         }
-        else {
-            return false;
+        else if (permissionString.equals(PERM_ADMIN) && player.isOp()) {
+            return true;
         }
-    }
 
-    public boolean isPermissionSystemActive() {
-        if (permission == null) {
-            return false;
-        }
-        return true;
+        return false;
     }
 
     public boolean configAllowOverRepair() {
-        if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("allow_over_repair: "+plugin.getConfig().getBoolean("allow_over_repair", Default.CONF_ALLOW_OVER_REPAIR.getBoolean()));
         return plugin.getConfig().getBoolean("allow_over_repair", Default.CONF_ALLOW_OVER_REPAIR.getBoolean());
     }
 
     public int configKeepEnchantments(Player player) {
         if (permission == null || groups == 0 || enchantChanceGroups.size() ==  0 || player == null) {
-            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("keep_enchantments_chance: " + plugin.getConfig().getInt("keep_enchantments_chance", Default.CONF_KEEP_ENCHANTS.getInt()));
             return plugin.getConfig().getInt("keep_enchantments_chance", Default.CONF_KEEP_ENCHANTS.getInt());
         }
         else {
@@ -208,7 +170,6 @@ RepairRecipe.logger.info("Add "+ench);
             if (chance == Integer.MIN_VALUE) {
                 chance = plugin.getConfig().getInt("keep_enchantments_chance", Default.CONF_KEEP_ENCHANTS.getInt());
             }
-            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("keep_enchantments_chance_groups: " + chance);
             return chance;
         }
     }
@@ -227,7 +188,6 @@ RepairRecipe.logger.info("Add "+ench);
     }
 
     public boolean configUseHighestEnchant() {
-        if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("use_highest_enchant: " + plugin.getConfig().getBoolean("use_highest_enchant", Default.CONF_HIGHEST_ENCHANT.getBoolean()));
         return plugin.getConfig().getBoolean("use_highest_enchant", Default.CONF_HIGHEST_ENCHANT.getBoolean());
     }
 
@@ -244,7 +204,6 @@ RepairRecipe.logger.info("Add "+ench);
         }
         if (multiplier == Integer.MIN_VALUE) {
             multiplier = plugin.getConfig().getInt("enchant_multiplier", Default.CONF_MAX_ENCHANT_MULTIPLIER.getInt());
-            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("enchant_multiplier: "+multiplier);
         }
         if (multiplier <= 0) {
             return 0.0;
@@ -305,7 +264,6 @@ RepairRecipe.logger.info("Add "+ench);
     }
 
     public double configSpecialEnchantMultiplier(Enchantment enchantment) {
-        RepairRecipe.logger.info("Special costs of "+enchantment);
         if (specialEnchantMultiplier.containsKey(enchantment)) {
             int multiplier = specialEnchantMultiplier.get(enchantment);
             if (multiplier < 0) {
@@ -321,7 +279,7 @@ RepairRecipe.logger.info("Add "+ench);
         }
     }
 
-    public void reloadItemConfig() {
+    private void reloadItemConfig() {
         if (itemConfigurationFile == null) {
             itemConfigurationFile = new File(plugin.getDataFolder(), "items.yml");
             if (!itemConfigurationFile.exists()) {
@@ -361,5 +319,53 @@ RepairRecipe.logger.info("Add "+ench);
         catch (IOException exception) {
             RepairRecipe.logger.severe("[RepairRecipe] Error on saving item configuration.");
         }
+    }
+
+    public void reloadConfig() {
+        plugin.reloadConfig();
+
+        ConfigurationSection discountSection = plugin.getConfig().getConfigurationSection("discount_groups");
+        discountGroups = new HashMap<String, Integer>();
+        int discount = plugin.getConfig().getInt("discount", Default.CONF_DISCOUNT.getInt());
+        if (discountSection != null) {
+            for (String group : discountSection.getKeys(false)) {
+                discountGroups.put(group, discountSection.getInt(group, discount));
+            }
+        }
+
+        int enchantMultiplier = plugin.getConfig().getInt("enchant_multiplier", Default.CONF_MAX_ENCHANT_MULTIPLIER.getInt());
+        ConfigurationSection enchantMultiplierSection = plugin.getConfig().getConfigurationSection("enchant_multiplier_groups");
+        enchantMultiplierGroups = new HashMap<String, Integer>();
+        if (enchantMultiplierSection != null) {
+            for (String group : enchantMultiplierSection.getKeys(false)) {
+                enchantMultiplierGroups.put(group, enchantMultiplierSection.getInt(group, enchantMultiplier));
+            }
+        }
+
+        int enchantChance = plugin.getConfig().getInt("keep_enchantments_chance", Default.CONF_HIGHEST_ENCHANT.getInt());
+        ConfigurationSection enchantChanceSection = plugin.getConfig().getConfigurationSection("keep_enchantments_chance_groups");
+        enchantChanceGroups = new HashMap<String, Integer>();
+        if (enchantChanceSection != null) {
+            for (String group : enchantChanceSection.getKeys(false)) {
+                enchantChanceGroups.put(group, enchantChanceSection.getInt(group, enchantChance));
+            }
+        }
+
+        ConfigurationSection specialEnchantMultiplierSection = plugin.getConfig().getConfigurationSection("special_enchant_multiplier");
+        specialEnchantMultiplier = new HashMap<Enchantment, Integer>();
+        if (specialEnchantMultiplierSection != null) {
+            for (String enchantment : specialEnchantMultiplierSection.getKeys(false)) {
+                Enchantment ench = Enchantment.getByName(enchantment.toUpperCase());
+                if (ench != null) {
+                    specialEnchantMultiplier.put(ench, specialEnchantMultiplierSection.getInt(enchantment, 100));
+                }
+            }
+        }
+
+        if (!RepairRecipeConfig.DEBUG) {
+            RepairRecipeConfig.DEBUG = plugin.getConfig().getBoolean("debug", false);
+        }
+
+        reloadItemConfig();
     }
 }

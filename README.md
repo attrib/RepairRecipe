@@ -165,6 +165,13 @@ diamond_sword:                         # see above
 
 `RepairRecipe.repair.overRepair` - Player is allowed to over repair items. Default: false
 
+## Commands ##
+
+`/repairrecipe reload` - Reload the `config.yml` file. To reload `items.yml` restart the server.
+
+`/repairrecipe debug [true|false]` - Enable debug mode. Many debug messages will appear in the server log and some to the player.
+Do not enable this as long as you do not want to report a bug.
+
 ## Credits ##
 
 I want to thank everyone who gives me feedback and tests the plugin. If you help me, I will add you to this list ;)

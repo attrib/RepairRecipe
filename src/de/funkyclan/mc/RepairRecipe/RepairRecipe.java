@@ -2,6 +2,7 @@ package de.funkyclan.mc.RepairRecipe;
 
 import de.funkyclan.mc.RepairRecipe.Listener.CraftingListener;
 import de.funkyclan.mc.RepairRecipe.Recipe.ShapelessRepairRecipe;
+import net.minecraft.server.CraftingManager;
 import net.minecraft.server.Packet103SetSlot;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
@@ -27,6 +28,7 @@ public class RepairRecipe extends JavaPlugin {
     public void onEnable() {
 
         getServer().getPluginManager().registerEvents(new CraftingListener(this), this);
+        getCommand("repairrecipe").setExecutor(new RepairRecipeCommand(this));
 
         config = new RepairRecipeConfig(this);
 
@@ -50,14 +52,19 @@ public class RepairRecipe extends JavaPlugin {
         logger.info("[RepairRecipe] successfully loaded.");
     }
 
-    public ShapelessRepairRecipe getRepairRecipe(ItemStack itemStack) {
+    public ShapelessRepairRecipe getRepairRecipeFor(ItemStack itemStack) {
+        return getRepairRecipeFor(itemStack.getType());
+    }
+
+    public ShapelessRepairRecipe getRepairRecipeFor(Material item) {
         for (ShapelessRepairRecipe recipe : repairRecipes) {
-            if (recipe.getResult().getType().equals(itemStack.getType())) {
+            if (recipe.getResult().getType().equals(item)) {
                 return recipe;
             }
         }
         return null;
     }
+
 
     public RepairRecipeConfig getConfigurator() {
         return config;

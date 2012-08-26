@@ -5,6 +5,8 @@
 * Added Metrics - http://mcstats.org/
 * Fixed Bow base_amount
 * Fixed allow_over_repair needs plugin system
+* Added Debug Mode Command (/repairrecipe debug)
+* Added Config Reload Command (/repairrecipe reload)
 
 ## v0.3.2 ##
 

@@ -38,9 +38,10 @@ public class CraftingListener implements Listener {
         }
         Player player = (Player) event.getWhoClicked();
 
-        ShapelessRepairRecipe recipe = plugin.getRepairRecipe(event.getRecipe().getResult());
+        ShapelessRepairRecipe recipe = plugin.getRepairRecipeFor(event.getRecipe().getResult());
 
         if (recipe != null && recipe.checkIngredients(event.getInventory().getMatrix())) {
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Found Recipe: "+recipe.toString());
             List<HumanEntity> players = new ArrayList<HumanEntity>();
             players.add(player);
             ItemStack repairedItem = recipe.repairItem(event.getInventory(), true, players);
@@ -62,9 +63,10 @@ public class CraftingListener implements Listener {
 
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPrepareItemCraft(PrepareItemCraftEvent event) {
-        ShapelessRepairRecipe recipe = plugin.getRepairRecipe(event.getRecipe().getResult());
+        ShapelessRepairRecipe recipe = plugin.getRepairRecipeFor(event.getRecipe().getResult());
 
         if (recipe != null && recipe.checkIngredients(event.getInventory().getMatrix())) {
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Found Recipe: "+recipe.toString());
             ItemStack repairedItem = recipe.repairItem(event.getInventory(), false, event.getViewers());
             event.getInventory().setResult(repairedItem);
         }
@@ -74,7 +76,7 @@ public class CraftingListener implements Listener {
     public void onInventoryEvent(InventoryClickEvent event) {
         if (event.isCancelled()) return;
         if (event.getRawSlot() > 0 && event.getRawSlot() < event.getView().getTopInventory().getSize() && event.getInventory().getItem(0) != null) {
-            ShapelessRepairRecipe recipe = plugin.getRepairRecipe(event.getInventory().getItem(0));
+            ShapelessRepairRecipe recipe = plugin.getRepairRecipeFor(event.getInventory().getItem(0));
             if (recipe != null && (event.getInventory().getType().equals(InventoryType.WORKBENCH) || event.getInventory().getType().equals(InventoryType.CRAFTING))) {
                 CraftingInventory inventory = (CraftingInventory) event.getInventory();
 

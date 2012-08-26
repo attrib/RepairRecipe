@@ -16,3 +16,13 @@ permissions:
     RepairRecipe.repair.overRepair:
         description: Allow users to over repair items
         default: false
+    RepairRecipe.admin:
+        description: Allows user to reload configuration and toggle debug mode
+        default: op
+
+commands:
+    repairrecipe:
+        description: Reload configuration and toggle debug mode.
+        usage: /<command> reload or /<command> debug [true|false]
+        permission: RepairRecipe.admin
+        permission-message: You are not allowed to use this command.
