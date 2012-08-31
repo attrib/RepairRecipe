@@ -1,5 +1,21 @@
 # Changelog #
 
+## v0.4.0 ##
+
+* Fixed Repaired Item is not getting updated, if only base item amount changed
+* Fixed base item amount is not getting updated, if repair costs more than one item
+* Fixed base item doesn't disappear, if repair costs is exactly base item amount
+* Added possibility for free repairs
+* Changed discount of 100 means its free as in free beer ;)
+* Fixed NPE when adding new item to a empty slot in the grid to a already working repair recipe
+* Added base item configuration
+* Added special enchant multiplier
+* Added Metrics - http://mcstats.org/
+* Fixed Bow base_amount
+* Fixed `allow_over_repair` needs plugin system
+* Added Debug Mode Command (/repairrecipe debug)
+* Added Config Reload Command (/repairrecipe reload)
+
 ## v0.2.3 ##
 
 * Fixed repair costs with `use_highest_enchant: true`

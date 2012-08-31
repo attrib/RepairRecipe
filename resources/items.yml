@@ -1,0 +1,154 @@
+chainmail_boots:
+    base_item: iron_ingot
+    base_amount: 2
+chainmail_chestplate:
+    base_item: iron_ingot
+    base_amount: 4
+chainmail_helmet:
+    base_item: iron_ingot
+    base_amount: 2
+chainmail_leggings:
+    base_item: iron_ingot
+    base_amount: 3
+
+leather_boots:
+    base_item: leather
+    base_amount: 4
+leather_chestplate:
+    base_item: leather
+    base_amount: 8
+leather_helmet:
+    base_item: leather
+    base_amount: 5
+leather_leggings:
+    base_item: leather
+    base_amount: 7
+
+stone_axe:
+    base_item: cobblestone
+    base_amount: 3
+stone_hoe:
+    base_item: cobblestone
+    base_amount: 2
+stone_pickaxe:
+    base_item: cobblestone
+    base_amount: 3
+stone_spade:
+    base_item: cobblestone
+    base_amount: 1
+stone_sword:
+    base_item: cobblestone
+    base_amount: 2
+
+wood_axe:
+    base_item: wood
+    base_amount: 3
+wood_hoe:
+    base_item: wood
+    base_amount: 2
+wood_pickaxe:
+    base_item: wood
+    base_amount: 3
+wood_spade:
+    base_item: wood
+    base_amount: 1
+wood_sword:
+    base_item: wood
+    base_amount: 2
+
+iron_boots:
+    base_item: iron_ingot
+    base_amount: 4
+iron_chestplate:
+    base_item: iron_ingot
+    base_amount: 8
+iron_helmet:
+    base_item: iron_ingot
+    base_amount: 5
+iron_leggings:
+    base_item: iron_ingot
+    base_amount: 7
+
+iron_axe:
+    base_item: iron_ingot
+    base_amount: 3
+iron_hoe:
+    base_item: iron_ingot
+    base_amount: 2
+iron_pickaxe:
+    base_item: iron_ingot
+    base_amount: 3
+iron_spade:
+    base_item: iron_ingot
+    base_amount: 1
+iron_sword:
+    base_item: iron_ingot
+    base_amount: 2
+
+gold_boots:
+    base_item: gold_ingot
+    base_amount: 4
+gold_chestplate:
+    base_item: gold_ingot
+    base_amount: 8
+gold_helmet:
+    base_item: gold_ingot
+    base_amount: 5
+gold_leggings:
+    base_item: gold_ingot
+    base_amount: 7
+
+gold_axe:
+    base_item: gold_ingot
+    base_amount: 3
+gold_hoe:
+    base_item: gold_ingot
+    base_amount: 2
+gold_pickaxe:
+    base_item: gold_ingot
+    base_amount: 3
+gold_spade:
+    base_item: gold_ingot
+    base_amount: 1
+gold_sword:
+    base_item: gold_ingot
+    base_amount: 2
+    
+diamond_boots:
+    base_item: diamond
+    base_amount: 4
+diamond_chestplate:
+    base_item: diamond
+    base_amount: 8
+diamond_helmet:
+    base_item: diamond
+    base_amount: 5
+diamond_leggings:
+    base_item: diamond
+    base_amount: 7
+
+diamond_axe:
+    base_item: diamond
+    base_amount: 3
+diamond_hoe:
+    base_item: diamond
+    base_amount: 2
+diamond_pickaxe:
+    base_item: diamond
+    base_amount: 3
+diamond_spade:
+    base_item: diamond
+    base_amount: 1
+diamond_sword:
+    base_item: diamond
+    base_amount: 2
+
+bow:
+    base_item: string
+    base_amount: 3
+fishing_rod:
+    base_item: string
+    base_amount: 2
+shears:
+    base_item: iron_ingot
+    base_amount: 2

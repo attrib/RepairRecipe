@@ -1,7 +1,9 @@
 author: attrib
 name: RepairRecipe
+description: Repair your items with the item you need to craft and keep enchantments.
+website: http://dev.bukkit.org/server-mods/repairrecipe/
 main: de.funkyclan.mc.RepairRecipe.RepairRecipe
-version: 0.2.3
+version: 0.4.0
 softdepend: [Vault]
 
 permissions:
@@ -14,3 +16,13 @@ permissions:
     RepairRecipe.repair.overRepair:
         description: Allow users to over repair items
         default: false
+    RepairRecipe.admin:
+        description: Allows user to reload configuration and toggle debug mode
+        default: op
+
+commands:
+    repairrecipe:
+        description: Reload configuration and toggle debug mode.
+        usage: /<command> reload or /<command> debug [true|false]
+        permission: RepairRecipe.admin
+        permission-message: You are not allowed to use this command.
