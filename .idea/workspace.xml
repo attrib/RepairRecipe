@@ -7,8 +7,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e02dc4df-5e68-4098-97c7-9611160ac706" name="Default" comment="Fixed repair costs with use_highest_enchant: true">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/MetricsLite.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/.idea/libraries/craftbukkit_1_3_1_R2_0.xml" />
+      <change type="DELETED" beforePath="T:\temp\minecraft\dev\plugins\RepairRecipe\.idea\libraries\craftbukkit_1_3_2_R0_1.xml" afterPath="" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/README.md" afterPath="$PROJECT_DIR$/README.md" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/RepairRecipe.iml" afterPath="$PROJECT_DIR$/RepairRecipe.iml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipe.java" afterPath="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipe.java" />
     </list>
     <ignored path="RepairRecipe.iws" />
@@ -70,7 +73,25 @@
       <file leaf-file-name="RepairRecipeConfig.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="270" column="126" selection-start="11463" selection-end="11463" vertical-scroll-proportion="0.0">
+            <state line="142" column="12" selection-start="5137" selection-end="5137" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ShapelessRepairRecipe.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/Recipe/ShapelessRepairRecipe.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="158" column="21" selection-start="5044" selection-end="5044" vertical-scroll-proportion="0.0">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CraftingListener.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/Listener/CraftingListener.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="75" column="16" selection-start="2947" selection-end="2947" vertical-scroll-proportion="0.33333334">
               <folding />
             </state>
           </provider>
@@ -79,18 +100,16 @@
       <file leaf-file-name="RepairRecipe.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipe.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="45" column="12" selection-start="1493" selection-end="1493" vertical-scroll-proportion="0.0">
-              <folding>
-                <element signature="imports" expanded="true" />
-              </folding>
+            <state line="4" column="0" selection-start="168" selection-end="168" vertical-scroll-proportion="0.0">
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MetricsLite.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/MetricsLite.java">
+      <file leaf-file-name="RepairRecipeCommand.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeCommand.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="28" column="12" selection-start="1588" selection-end="1588" vertical-scroll-proportion="-2.9134774">
+            <state line="7" column="13" selection-start="205" selection-end="205" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -108,7 +127,7 @@
       <file leaf-file-name="CHANGELOG.md" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="9" column="34" selection-start="162" selection-end="162" vertical-scroll-proportion="0.0">
+            <state line="9" column="34" selection-start="404" selection-end="404" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -117,7 +136,7 @@
       <file leaf-file-name="README.md" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/README.md">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="4" column="13" selection-start="109" selection-end="109" vertical-scroll-proportion="0.0">
+            <state line="163" column="95" selection-start="8605" selection-end="8605" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -126,7 +145,7 @@
       <file leaf-file-name="plugin.yml" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/resources/plugin.yml">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="3" column="14" selection-start="134" selection-end="134" vertical-scroll-proportion="0.0">
+            <state line="18" column="4" selection-start="601" selection-end="619" vertical-scroll-proportion="0.0">
               <folding />
             </state>
           </provider>
@@ -161,11 +180,11 @@
         <option value="$PROJECT_DIR$/resources/config.yml" />
         <option value="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java" />
         <option value="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/ShapelessRepairRecipe.java" />
-        <option value="$PROJECT_DIR$/README.md" />
         <option value="$PROJECT_DIR$/resources/plugin.yml" />
         <option value="$PROJECT_DIR$/CHANGELOG.md" />
         <option value="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/MetricsLite.java" />
         <option value="$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipe.java" />
+        <option value="$PROJECT_DIR$/README.md" />
       </list>
     </option>
   </component>
@@ -279,8 +298,62 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RepairRecipe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Recipe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RepairRecipe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RepairRecipe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RepairRecipe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="Listener" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RepairRecipe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="RepairRecipe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="resources" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+        </subPane>
+      </pane>
+      <pane id="Scope">
+        <subPane subId="Project Files">
+          <PATH>
+            <PATH_ELEMENT USER_OBJECT="Root">
+              <option name="myItemId" value="" />
+              <option name="myItemType" value="" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
@@ -299,21 +372,11 @@
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope">
-        <subPane subId="Project Files">
-          <PATH>
-            <PATH_ELEMENT USER_OBJECT="Root">
-              <option name="myItemId" value="" />
-              <option name="myItemType" value="" />
-            </PATH_ELEMENT>
-          </PATH>
-        </subPane>
-      </pane>
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="GoToFile.includeJavaFiles" value="false" />
-    <property name="project.structure.last.edited" value="Artifacts" />
+    <property name="project.structure.last.edited" value="Modules" />
     <property name="project.structure.proportion" value="0.15" />
     <property name="options.splitter.main.proportions" value="0.3" />
     <property name="recentsLimit" value="5" />
@@ -324,8 +387,8 @@
     <property name="GoToClass.toSaveIncludeLibraries" value="false" />
     <property name="MemberChooser.showClasses" value="true" />
     <property name="GoToClass.includeLibraries" value="false" />
-    <property name="options.searchVisible" value="true" />
     <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="RunManager">
     <configuration default="true" type="#org.jetbrains.idea.devkit.run.PluginConfigurationType" factoryName="Plugin">
@@ -348,24 +411,6 @@
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
-        <option name="Maven.BeforeRunTask" enabled="false" />
-      </method>
-    </configuration>
-    <configuration default="true" type="Applet" factoryName="Applet">
-      <module name="" />
-      <option name="MAIN_CLASS_NAME" />
-      <option name="HTML_FILE_NAME" />
-      <option name="HTML_USED" value="false" />
-      <option name="WIDTH" value="400" />
-      <option name="HEIGHT" value="300" />
-      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
-      <option name="VM_PARAMETERS" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <method>
-        <option name="AntTarget" enabled="false" />
-        <option name="BuildArtifacts" enabled="false" />
-        <option name="Make" enabled="true" />
         <option name="Maven.BeforeRunTask" enabled="false" />
       </method>
     </configuration>
@@ -394,6 +439,24 @@
       <envs />
       <properties />
       <listeners />
+      <method>
+        <option name="AntTarget" enabled="false" />
+        <option name="BuildArtifacts" enabled="false" />
+        <option name="Make" enabled="true" />
+        <option name="Maven.BeforeRunTask" enabled="false" />
+      </method>
+    </configuration>
+    <configuration default="true" type="Applet" factoryName="Applet">
+      <module name="" />
+      <option name="MAIN_CLASS_NAME" />
+      <option name="HTML_FILE_NAME" />
+      <option name="HTML_USED" value="false" />
+      <option name="WIDTH" value="400" />
+      <option name="HEIGHT" value="300" />
+      <option name="POLICY_FILE" value="$APPLICATION_HOME_DIR$/bin/appletviewer.policy" />
+      <option name="VM_PARAMETERS" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
       <method>
         <option name="AntTarget" enabled="false" />
         <option name="BuildArtifacts" enabled="false" />
@@ -571,12 +634,12 @@
     <frame x="-8" y="-8" width="1936" height="1096" extended-state="6" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32905984" sideWeight="0.3270978" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32905984" sideWeight="0.32549438" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="JetGradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32905984" sideWeight="0.6691609" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32905984" sideWeight="0.67076427" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Kahlua" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32905984" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -684,9 +747,25 @@
         <state line="5" column="18" selection-start="135" selection-end="11407" vertical-scroll-proportion="0.12569316" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java">
+    <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/MetricsLite.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="270" column="126" selection-start="11463" selection-end="11463" vertical-scroll-proportion="0.0">
+        <state line="226" column="16" selection-start="7858" selection-end="7858" vertical-scroll-proportion="0.3327787">
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="4" column="0" selection-start="168" selection-end="168" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeCommand.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="7" column="13" selection-start="205" selection-end="205" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
@@ -698,39 +777,44 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/README.md">
+    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="4" column="13" selection-start="109" selection-end="109" vertical-scroll-proportion="0.0">
+        <state line="9" column="34" selection-start="404" selection-end="404" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/resources/plugin.yml">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="3" column="14" selection-start="134" selection-end="134" vertical-scroll-proportion="0.0">
+        <state line="18" column="4" selection-start="601" selection-end="619" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/CHANGELOG.md">
+    <entry file="file://$PROJECT_DIR$/README.md">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="9" column="34" selection-start="162" selection-end="162" vertical-scroll-proportion="0.0">
+        <state line="163" column="95" selection-start="8605" selection-end="8605" vertical-scroll-proportion="0.0">
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipe.java">
+    <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/RepairRecipeConfig.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="45" column="12" selection-start="1493" selection-end="1493" vertical-scroll-proportion="0.0">
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state line="142" column="12" selection-start="5137" selection-end="5137" vertical-scroll-proportion="0.0">
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/MetricsLite.java">
+    <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/Recipe/ShapelessRepairRecipe.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="28" column="12" selection-start="1588" selection-end="1588" vertical-scroll-proportion="-2.9134774">
+        <state line="158" column="21" selection-start="5044" selection-end="5044" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/de/funkyclan/mc/RepairRecipe/Listener/CraftingListener.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="16" selection-start="2947" selection-end="2947" vertical-scroll-proportion="0.33333334">
           <folding />
         </state>
       </provider>

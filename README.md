@@ -161,6 +161,8 @@ diamond_sword:                         # see above
 
 `RepairRecipe.repair.overRepair` - Player is allowed to over repair items. Default: false
 
+`RepairRecipe.admin` - Player can use the commands /repairrecipe reload and /repairrecipe debug
+
 ## Commands ##
 
 `/repairrecipe reload` - Reload the `config.yml` file. To reload `items.yml` restart the server.
