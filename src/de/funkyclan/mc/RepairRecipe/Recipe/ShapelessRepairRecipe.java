@@ -290,6 +290,8 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
                 }
             }
         }
+        // dupe fix
+        repairedItem.setAmount(1);
         return repairedItem;
     }
 

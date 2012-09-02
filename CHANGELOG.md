@@ -1,5 +1,9 @@
 # Changelog #
 
+## v0.4.1 ##
+
+* Fixed a dupe bug if you put it more than one tool (Using StackableItems Plugin or /give <nick> 276 900 15)
+
 ## v0.4.0 ##
 
 * Fixed Repaired Item is not getting updated, if only base item amount changed
