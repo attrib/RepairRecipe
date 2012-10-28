@@ -205,7 +205,8 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
                         else if (dieGod.nextInt(100) > chance) {
                             int level = repairedItem.getEnchantmentLevel(ench);
                             repairedItem.removeEnchantment(ench);
-                            repairedItem.addEnchantment(ench, dieGod.nextInt(level-1)+1);
+                            if (level-1 > 0)
+                                repairedItem.addEnchantment(ench, dieGod.nextInt(level-1)+1);
                             if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("enchant "+ench.getName()+" decreased level from "+level+" to "+repairedItem.getEnchantmentLevel(ench));
                         }
                     }

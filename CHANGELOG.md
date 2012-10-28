@@ -1,5 +1,10 @@
 # Changelog #
 
+## v0.4.2 ##
+
+- Fixed a exception when repairing a item with level 1 enchantment and setup a keep enchantment chance
+- Tested with Bukkit 1.4.2-R0.1 (dev)
+
 ## v0.4.1 ##
 
 * Fixed a dupe bug if you put it more than one tool (Using StackableItems Plugin or /give <nick> 276 900 15)
