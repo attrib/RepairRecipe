@@ -273,17 +273,9 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
                     if (ingot.getAmount() <= 1) {
                         ingot.setAmount(0);
                     }
-
-                    for (HumanEntity entity : players) {
-                        plugin.updateSlotInventory(entity, ingot, ingotIndex);
-                    }
-
                 }
                 else if (ingotCost == -1 && discount == 0.0) {
                     ingot.setAmount(ingot.getAmount()+1);
-                    for (HumanEntity entity : players) {
-                        plugin.updateSlotInventory(entity, ingot, ingotIndex);
-                    }
                 }
                 else if (ingotCost < 0) {
                     return null;

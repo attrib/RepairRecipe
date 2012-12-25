@@ -110,10 +110,6 @@ public class CraftingListener implements Listener {
                     ItemStack repairedItem = recipe.repairItem(inventory, false, event.getViewers());
                     inventory.setResult(repairedItem);
                     inventory.setMatrix(tempMatrix);
-
-                    for (HumanEntity entity : event.getViewers()) {
-                        plugin.updateSlotInventory(entity, repairedItem, 0);
-                    }
                 }
             }
         }
