@@ -8,7 +8,7 @@
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Vault" level="project" />
-    <orderEntry type="library" name="craftbukkit-1.4.2-R0.1-20121028.153322-9" level="project" />
+    <orderEntry type="library" name="craftbukkit-1.4.6-R0.2-20121228.030808-16" level="project" />
   </component>
 </module>
 

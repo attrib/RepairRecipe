@@ -1,6 +1,11 @@
 # Changelog #
 
-## v0.4.2 ##
+## v0.4.2-beta2 ##
+
+- Added Repair Sound
+- Updated to Bukkit 1.4.6-R0.1 - not downward compatible!
+
+## v0.4.2-beta ##
 
 - Fixed a exception when repairing a item with level 1 enchantment and setup a keep enchantment chance
 - Tested with Bukkit 1.4.2-R0.1 (dev)

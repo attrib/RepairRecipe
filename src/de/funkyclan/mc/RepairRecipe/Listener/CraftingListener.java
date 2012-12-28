@@ -4,6 +4,7 @@ import de.funkyclan.mc.RepairRecipe.Recipe.ShapelessRepairRecipe;
 import de.funkyclan.mc.RepairRecipe.RepairRecipe;
 import de.funkyclan.mc.RepairRecipe.RepairRecipeConfig;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -56,6 +57,7 @@ public class CraftingListener implements Listener {
                 return;
             }
             event.setCurrentItem(repairedItem);
+            player.playSound(player.getLocation(), Sound.ANVIL_USE, 1f, 1f);
         }
 
 

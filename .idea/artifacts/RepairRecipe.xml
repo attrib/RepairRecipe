@@ -1,6 +1,6 @@
 <component name="ArtifactManager">
   <artifact type="jar" build-on-make="true" name="RepairRecipe">
-    <output-path>$PROJECT_DIR$/../../../dev-bukkit/plugins</output-path>
+    <output-path>$USER_HOME$/mc_server/plugins</output-path>
     <root id="archive" name="RepairRecipe.jar">
       <element id="directory" name="META-INF">
         <element id="file-copy" path="$PROJECT_DIR$/src/META-INF/MANIFEST.MF" />
