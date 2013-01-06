@@ -1,5 +1,9 @@
 # Changelog #
 
+## v0.4.3-beta ##
+
+- Fixed Ingots in Workbench doesn't get updated
+
 ## v0.4.2-beta2 ##
 
 - Added Repair Sound

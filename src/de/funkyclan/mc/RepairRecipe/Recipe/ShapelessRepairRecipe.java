@@ -268,6 +268,7 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
             repairedItem.setDurability(durability);
 
             if (setInventory) {
+                // one ingot is removed automatically by recipe cost
                 ingotCost = ingotCost-1;
                 if (ingotCost > 0) {
                     ingot.setAmount(ingot.getAmount() - ingotCost);
@@ -276,14 +277,20 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
                     }
 
                     for (HumanEntity entity : players) {
-                        plugin.updateSlotInventory(entity, ingot, ingotIndex);
+                        // some strange behavior here, we have also to subtract the recipe costs here...
+                        ItemStack sendIngot = ingot.clone();
+                        sendIngot.setAmount(ingot.getAmount() - 1);
+                        plugin.updateSlotInventory(entity, sendIngot, ingotIndex);
                     }
 
                 }
                 else if (ingotCost == -1 && discount == 0.0) {
                     ingot.setAmount(ingot.getAmount()+1);
                     for (HumanEntity entity : players) {
-                        plugin.updateSlotInventory(entity, ingot, ingotIndex);
+                        // some strange behavior here, we have also to subtract the recipe costs here...
+                        ItemStack sendIngot = ingot.clone();
+                        sendIngot.setAmount(ingot.getAmount() - 1);
+                        plugin.updateSlotInventory(entity, sendIngot, ingotIndex);
                     }
                 }
                 else if (ingotCost < 0) {
