@@ -1,5 +1,9 @@
 # Changelog #
 
+## v0.4.4 ##
+
+- Updating for Bukkit 1.4.7-R1.0
+
 ## v0.4.3-beta ##
 
 - Fixed Ingots in Workbench doesn't get updated
