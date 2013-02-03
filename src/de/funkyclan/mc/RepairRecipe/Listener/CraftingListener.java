@@ -45,17 +45,19 @@ public class CraftingListener implements Listener {
             if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Found Recipe: "+recipe.toString());
             List<HumanEntity> players = new ArrayList<HumanEntity>();
             players.add(player);
-            ItemStack repairedItem = recipe.repairItem(event.getInventory(), true, players);
-            if (repairedItem == null) {
-                event.setResult(Event.Result.DENY);
-                return;
-            }
 
             if (!plugin.getConfigurator().hasPermission(player, RepairRecipeConfig.PERM_REPAIR)) {
                 event.setResult(Event.Result.DENY);
                 player.sendMessage("Insufficient permissions to repair item.");
                 return;
             }
+
+            ItemStack repairedItem = recipe.repairItem(event.getInventory(), true, players);
+            if (repairedItem == null) {
+                event.setResult(Event.Result.DENY);
+                return;
+            }
+
             event.setCurrentItem(repairedItem);
             player.playSound(player.getLocation(), Sound.ANVIL_USE, 1f, 1f);
         }
