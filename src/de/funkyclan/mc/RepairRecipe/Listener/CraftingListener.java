@@ -42,7 +42,7 @@ public class CraftingListener implements Listener {
         ShapelessRepairRecipe recipe = plugin.getRepairRecipeFor(event.getRecipe().getResult());
 
         if (recipe != null && recipe.checkIngredients(event.getInventory().getMatrix())) {
-            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Found Recipe: "+recipe.toString());
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Found Recipe: " + recipe.toString());
             List<HumanEntity> players = new ArrayList<HumanEntity>();
             players.add(player);
 
@@ -70,7 +70,7 @@ public class CraftingListener implements Listener {
         ShapelessRepairRecipe recipe = plugin.getRepairRecipeFor(event.getRecipe().getResult());
 
         if (recipe != null && recipe.checkIngredients(event.getInventory().getMatrix())) {
-            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Found Recipe: "+recipe.toString());
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Found Recipe: " + recipe.toString());
             ItemStack repairedItem = recipe.repairItem(event.getInventory(), false, event.getViewers());
             event.getInventory().setResult(repairedItem);
         }
@@ -94,17 +94,15 @@ public class CraftingListener implements Listener {
                     i++;
                 }
 
-                ItemStack item = matrix[event.getRawSlot()-1];
+                ItemStack item = matrix[event.getRawSlot() - 1];
                 if (item.getType().equals(Material.AIR)) {
                     item = event.getCursor().clone();
                 }
                 if (event.isRightClick()) {
-                    item.setAmount(item.getAmount()+1);
-                }
-                else if (event.isLeftClick()) {
-                    item.setAmount(item.getAmount()+event.getCursor().getAmount());
-                }
-                else if (event.isShiftClick()) {
+                    item.setAmount(item.getAmount() + 1);
+                } else if (event.isLeftClick()) {
+                    item.setAmount(item.getAmount() + event.getCursor().getAmount());
+                } else if (event.isShiftClick()) {
                     item.setAmount(0);
                 }
 

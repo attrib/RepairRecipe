@@ -46,7 +46,7 @@ public class RepairRecipe extends JavaPlugin {
             // Failed to submit the stats :-(
         }
 
-        logger.info("[RepairRecipe] added "+ repairRecipes.size() +" Recipes for repair.");
+        logger.info("[RepairRecipe] added " + repairRecipes.size() + " Recipes for repair.");
         logger.info("[RepairRecipe] successfully loaded.");
     }
 
@@ -83,17 +83,17 @@ public class RepairRecipe extends JavaPlugin {
     }
 
     private void addRecipes() {
-        for(String key : config.getItemConfig().getKeys(false)) {
+        for (String key : config.getItemConfig().getKeys(false)) {
             Material item = Material.matchMaterial(key);
             if (item == null) {
-                logger.info("[RepairRecipe] unknown item "+key);
+                logger.info("[RepairRecipe] unknown item " + key);
                 continue;
             }
             ConfigurationSection section = config.getItemConfig().getConfigurationSection(key);
 
             Material baseItem = Material.matchMaterial(section.getString("base_item"));
             if (baseItem == null) {
-                logger.info("[RepairRecipe] unknown base item "+section.getString("base_item"));
+                logger.info("[RepairRecipe] unknown base item " + section.getString("base_item"));
                 continue;
             }
 
@@ -111,7 +111,8 @@ public class RepairRecipe extends JavaPlugin {
 
             getServer().addRecipe(recipe);
 
-            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Added " +item+ " with " +baseAmount+ "x" +baseItem);
+            if (RepairRecipeConfig.DEBUG)
+                RepairRecipe.logger.info("Added " + item + " with " + baseAmount + "x" + baseItem);
         }
     }
 

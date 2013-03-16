@@ -32,24 +32,24 @@ public class RepairRecipeConfig {
     private FileConfiguration itemConfig = null;
     private File itemConfigurationFile = null;
 
-    public static final String PERM_REPAIR         = "RepairRecipe.repair";
+    public static final String PERM_REPAIR = "RepairRecipe.repair";
     public static final String PERM_REPAIR_ENCHANT = "RepairRecipe.repair.enchant";
-    public static final String PERM_REPAIR_OVER    = "RepairRecipe.repair.overRepair";
-    public static final String PERM_ADMIN          = "RepairRecipe.admin";
+    public static final String PERM_REPAIR_OVER = "RepairRecipe.repair.overRepair";
+    public static final String PERM_ADMIN = "RepairRecipe.admin";
 
     public static boolean DEBUG = false;
 
     public enum Default {
-        PERM_REPAIR (true),
-        PERM_REPAIR_ENCHANT (true),
-        PERM_REPAIR_OVER (false),
-        PERM_ADMIN (false),
+        PERM_REPAIR(true),
+        PERM_REPAIR_ENCHANT(true),
+        PERM_REPAIR_OVER(false),
+        PERM_ADMIN(false),
 
-        CONF_ALLOW_OVER_REPAIR (false),
-        CONF_KEEP_ENCHANTS (100),
-        CONF_HIGHEST_ENCHANT (true),
+        CONF_ALLOW_OVER_REPAIR(false),
+        CONF_KEEP_ENCHANTS(100),
+        CONF_HIGHEST_ENCHANT(true),
         CONF_MAX_ENCHANT_MULTIPLIER(100),
-        CONF_DISCOUNT (10);
+        CONF_DISCOUNT(10);
 
         private final boolean bdef;
         private final int idef;
@@ -104,8 +104,7 @@ public class RepairRecipeConfig {
             boolean keep = config.getBoolean("keep_enchantments");
             if (keep) {
                 config.set("keep_enchantments_chance", 100);
-            }
-            else {
+            } else {
                 config.set("keep_enchantments_chance", 0);
             }
             config.set("keep_enchantments", null);
@@ -113,8 +112,7 @@ public class RepairRecipeConfig {
         if (config.isBoolean("discount")) {
             config.set("discount", Default.CONF_DISCOUNT.getInt());
             config.createSection("discount_groups");
-        }
-        else if (config.isConfigurationSection("discount")) {
+        } else if (config.isConfigurationSection("discount")) {
             ConfigurationSection discountSectionOld = config.getConfigurationSection("discount");
             ConfigurationSection newDiscountSection = config.createSection("discount_groups");
             for (String group : discountSectionOld.getKeys(false)) {
@@ -130,22 +128,19 @@ public class RepairRecipeConfig {
 
     public boolean hasPermission(Player player, String permissionString) {
         if (permission != null) {
-            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Permission: "+player+" "+permissionString+" "+permission.has(player, permissionString));
-            return permission.has(player, permissionString);
-        }
-        else if (permissionString.equals(PERM_REPAIR))  {
+            if (RepairRecipeConfig.DEBUG)
+                RepairRecipe.logger.info("Permission: " + player + " " + permissionString + " " + permission.playerHas(player, permissionString));
+            return permission.playerHas(player, permissionString);
+        } else if (permissionString.equals(PERM_REPAIR)) {
             return Default.PERM_REPAIR.getBoolean();
-        }
-        else if (permissionString.equals(PERM_REPAIR_ENCHANT))  {
+        } else if (permissionString.equals(PERM_REPAIR_ENCHANT)) {
             return Default.PERM_REPAIR_ENCHANT.getBoolean();
-        }
-        else if (permissionString.equals(PERM_REPAIR_OVER)) {
+        } else if (permissionString.equals(PERM_REPAIR_OVER)) {
             if (!Default.PERM_REPAIR_OVER.getBoolean() && configAllowOverRepair()) {
                 return true;
             }
             return Default.PERM_REPAIR_OVER.getBoolean();
-        }
-        else if (permissionString.equals(PERM_ADMIN) && player.isOp()) {
+        } else if (permissionString.equals(PERM_ADMIN) && player.isOp()) {
             return true;
         }
 
@@ -157,12 +152,11 @@ public class RepairRecipeConfig {
     }
 
     public int configKeepEnchantments(Player player) {
-        if (permission == null || groups == 0 || enchantChanceGroups.size() ==  0 || player == null) {
+        if (permission == null || groups == 0 || enchantChanceGroups.size() == 0 || player == null) {
             return plugin.getConfig().getInt("keep_enchantments_chance", Default.CONF_KEEP_ENCHANTS.getInt());
-        }
-        else {
+        } else {
             int chance = Integer.MIN_VALUE;
-            for (String group : permission.getPlayerGroups(player)) {
+            for (String group : getPlayerGroups(player)) {
                 if (enchantChanceGroups.containsKey(group)) {
                     chance = Math.max(chance, enchantChanceGroups.get(group));
                 }
@@ -194,9 +188,9 @@ public class RepairRecipeConfig {
 
     public double configMaxEnchantMultiplier(Player player) {
         int multiplier = Integer.MIN_VALUE;
-        if (permission != null && groups > 0 && enchantMultiplierGroups.size() >  0 && player != null) {
+        if (permission != null && groups > 0 && enchantMultiplierGroups.size() > 0 && player != null) {
             //permission.
-            for (String group : permission.getPlayerGroups(player)) {
+            for (String group : getPlayerGroups(player)) {
                 if (enchantMultiplierGroups.containsKey(group)) {
                     multiplier = Math.max(multiplier, enchantMultiplierGroups.get(group));
                 }
@@ -211,7 +205,7 @@ public class RepairRecipeConfig {
         if (multiplier >= 200) {
             return 2.0;
         }
-        return (multiplier/100.0);
+        return (multiplier / 100.0);
     }
 
     public double configMaxEnchantMultiplier(List<HumanEntity> players) {
@@ -233,10 +227,11 @@ public class RepairRecipeConfig {
             if (discount >= 100) {
                 return 0.0;
             }
-            return 1.0-(discount/100.0);
+            return 1.0 - (discount / 100.0);
         }
         int discount = Integer.MIN_VALUE;
-        for (String group : permission.getPlayerGroups(player)) {
+
+        for (String group : getPlayerGroups(player)) {
             if (discountGroups.containsKey(group)) {
                 discount = Math.max(discount, discountGroups.get(group));
             }
@@ -247,7 +242,26 @@ public class RepairRecipeConfig {
         if (discount >= 100) {
             return 0.0;
         }
-        return 1.0-(discount/100.0);
+        return 1.0 - (discount / 100.0);
+    }
+
+    private String[] getPlayerGroups(Player player) {
+        // TODO: bleeding edge feature, use this with new vault version
+//        if (!permission.hasGroupSupport())
+//            return new String[0];
+        // TODO: Both functions could retrieve odd values, depending on permission system support, see https://github.com/MilkBowl/Vault/issues/368.
+        String[] globalGroups = permission.getPlayerGroups((String) null, player.getName());
+        String[] worldGroups = permission.getPlayerGroups(player);
+        if (globalGroups == null && worldGroups == null)
+            return new String[0];
+        if (globalGroups == null && worldGroups != null)
+            return worldGroups;
+        if (globalGroups != null && worldGroups == null)
+            return globalGroups;
+        String[] groups = new String[globalGroups.length + worldGroups.length];
+        System.arraycopy(globalGroups, 0, groups, 0, globalGroups.length);
+        System.arraycopy(worldGroups, 0, groups, globalGroups.length, worldGroups.length);
+        return groups;
     }
 
     public double configDiscount(List<HumanEntity> players) {
@@ -272,9 +286,8 @@ public class RepairRecipeConfig {
             if (multiplier > 200) {
                 return 2.0;
             }
-            return multiplier/100;
-        }
-        else {
+            return multiplier / 100;
+        } else {
             return 1.0;
         }
     }
@@ -315,8 +328,7 @@ public class RepairRecipeConfig {
         }
         try {
             itemConfig.save(itemConfigurationFile);
-        }
-        catch (IOException exception) {
+        } catch (IOException exception) {
             RepairRecipe.logger.severe("[RepairRecipe] Error on saving item configuration.");
         }
     }

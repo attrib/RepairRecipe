@@ -24,19 +24,18 @@ public class RepairRecipeCommand implements CommandExecutor {
             }
             if (args.length == 1 && args[0].equalsIgnoreCase("debug") && hasAdminPermission(sender)) {
                 RepairRecipeConfig.DEBUG = !RepairRecipeConfig.DEBUG;
-                sender.sendMessage("[RepairRecipe] Debug set to "+RepairRecipeConfig.DEBUG);
+                sender.sendMessage("[RepairRecipe] Debug set to " + RepairRecipeConfig.DEBUG);
                 return true;
             }
             if (args.length == 2 && args[0].equalsIgnoreCase("debug") && hasAdminPermission(sender)) {
                 boolean debug = !RepairRecipeConfig.DEBUG;
                 if (args[1].equalsIgnoreCase("true") || args[1].equalsIgnoreCase("1")) {
                     debug = true;
-                }
-                else if (args[1].equalsIgnoreCase("false") || args[1].equalsIgnoreCase("0")) {
+                } else if (args[1].equalsIgnoreCase("false") || args[1].equalsIgnoreCase("0")) {
                     debug = false;
                 }
                 RepairRecipeConfig.DEBUG = debug;
-                sender.sendMessage("[RepairRecipe] Debug set to "+RepairRecipeConfig.DEBUG);
+                sender.sendMessage("[RepairRecipe] Debug set to " + RepairRecipeConfig.DEBUG);
                 return true;
             }
         }

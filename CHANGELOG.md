@@ -3,6 +3,7 @@
 ## v0.4.5 ##
 
 - Fixed item duplication, if user has no permission to repair
+- Added support for global groups, not only world specific groups
 
 ## v0.4.4 ##
 
