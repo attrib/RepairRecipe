@@ -1,5 +1,28 @@
 # Changelog #
 
+## v0.4.5 ##
+
+- Fixed item duplication, if user has no permission to repair
+- Added support for global groups, not only world specific groups
+
+## v0.4.4 ##
+
+- Updating for Bukkit 1.4.7-R1.0
+
+## v0.4.3-beta ##
+
+- Fixed Ingots in Workbench doesn't get updated
+
+## v0.4.2-beta2 ##
+
+- Added Repair Sound
+- Updated to Bukkit 1.4.6-R0.1 - not downward compatible!
+
+## v0.4.2-beta ##
+
+- Fixed a exception when repairing a item with level 1 enchantment and setup a keep enchantment chance
+- Tested with Bukkit 1.4.2-R0.1 (dev)
+
 ## v0.4.1 ##
 
 * Fixed a dupe bug if you put it more than one tool (Using StackableItems Plugin or /give <nick> 276 900 15)

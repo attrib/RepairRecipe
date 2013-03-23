@@ -4,6 +4,7 @@ import de.funkyclan.mc.RepairRecipe.Recipe.ShapelessRepairRecipe;
 import de.funkyclan.mc.RepairRecipe.RepairRecipe;
 import de.funkyclan.mc.RepairRecipe.RepairRecipeConfig;
 import org.bukkit.Material;
+import org.bukkit.Sound;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.Event;
@@ -41,21 +42,24 @@ public class CraftingListener implements Listener {
         ShapelessRepairRecipe recipe = plugin.getRepairRecipeFor(event.getRecipe().getResult());
 
         if (recipe != null && recipe.checkIngredients(event.getInventory().getMatrix())) {
-            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Found Recipe: "+recipe.toString());
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Found Recipe: " + recipe.toString());
             List<HumanEntity> players = new ArrayList<HumanEntity>();
             players.add(player);
-            ItemStack repairedItem = recipe.repairItem(event.getInventory(), true, players);
-            if (repairedItem == null) {
-                event.setResult(Event.Result.DENY);
-                return;
-            }
 
             if (!plugin.getConfigurator().hasPermission(player, RepairRecipeConfig.PERM_REPAIR)) {
                 event.setResult(Event.Result.DENY);
                 player.sendMessage("Insufficient permissions to repair item.");
                 return;
             }
+
+            ItemStack repairedItem = recipe.repairItem(event.getInventory(), true, players);
+            if (repairedItem == null) {
+                event.setResult(Event.Result.DENY);
+                return;
+            }
+
             event.setCurrentItem(repairedItem);
+            player.playSound(player.getLocation(), Sound.ANVIL_USE, 1f, 1f);
         }
 
 
@@ -66,7 +70,7 @@ public class CraftingListener implements Listener {
         ShapelessRepairRecipe recipe = plugin.getRepairRecipeFor(event.getRecipe().getResult());
 
         if (recipe != null && recipe.checkIngredients(event.getInventory().getMatrix())) {
-            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Found Recipe: "+recipe.toString());
+            if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Found Recipe: " + recipe.toString());
             ItemStack repairedItem = recipe.repairItem(event.getInventory(), false, event.getViewers());
             event.getInventory().setResult(repairedItem);
         }
@@ -90,17 +94,15 @@ public class CraftingListener implements Listener {
                     i++;
                 }
 
-                ItemStack item = matrix[event.getRawSlot()-1];
+                ItemStack item = matrix[event.getRawSlot() - 1];
                 if (item.getType().equals(Material.AIR)) {
                     item = event.getCursor().clone();
                 }
                 if (event.isRightClick()) {
-                    item.setAmount(item.getAmount()+1);
-                }
-                else if (event.isLeftClick()) {
-                    item.setAmount(item.getAmount()+event.getCursor().getAmount());
-                }
-                else if (event.isShiftClick()) {
+                    item.setAmount(item.getAmount() + 1);
+                } else if (event.isLeftClick()) {
+                    item.setAmount(item.getAmount() + event.getCursor().getAmount());
+                } else if (event.isShiftClick()) {
                     item.setAmount(0);
                 }
 
