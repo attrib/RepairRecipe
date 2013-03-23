@@ -9,7 +9,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" name="Vault" level="project" />
     <orderEntry type="library" name="PermissionsEx" level="project" />
-    <orderEntry type="library" name="craftbukkit-1.4.7-R1.0" level="project" />
+    <orderEntry type="library" name="craftbukkit-1.5.1-R0.1-20130323.060235-13" level="project" />
   </component>
 </module>
 

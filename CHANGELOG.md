@@ -1,5 +1,9 @@
 # Changelog #
 
+## v0.4.6 ##
+
+- Updating for Bukkit 1.5.1-R0.1
+
 ## v0.4.5 ##
 
 - Fixed item duplication, if user has no permission to repair
