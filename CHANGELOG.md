@@ -3,6 +3,7 @@
 ## v0.4.7 ##
 
 - Added catch for PermissionsNotAvailable Error
+- Updating for Bukkit 1.5.2-R0.1
 
 ## v0.4.6 ##
 
