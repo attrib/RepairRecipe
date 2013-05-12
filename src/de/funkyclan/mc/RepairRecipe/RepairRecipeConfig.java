@@ -9,6 +9,7 @@ import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.RegisteredServiceProvider;
+import ru.tehkode.permissions.exceptions.PermissionsNotAvailable;
 
 import java.io.File;
 import java.io.IOException;
@@ -79,8 +80,13 @@ public class RepairRecipeConfig {
         if (plugin.getServer().getPluginManager().getPlugin("Vault") != null) {
             RegisteredServiceProvider<Permission> rsp = plugin.getServer().getServicesManager().getRegistration(Permission.class);
             if (rsp != null) {
-                groups = rsp.getProvider().getGroups().length;
-                permission = rsp.getProvider();
+                try {
+                    groups = rsp.getProvider().getGroups().length;
+                    permission = rsp.getProvider();
+                }
+                catch (PermissionsNotAvailable exception) {
+                    RepairRecipe.logger.info("Couldn't find Permissions plugin. - " + exception.getMessage());
+                }
             }
 
             RegisteredServiceProvider<Economy> economyProvider = plugin.getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);

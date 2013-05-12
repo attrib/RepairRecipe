@@ -1,5 +1,9 @@
 # Changelog #
 
+## v0.4.7 ##
+
+- Added catch for PermissionsNotAvailable Error
+
 ## v0.4.6 ##
 
 - Updating for Bukkit 1.5.1-R0.1
