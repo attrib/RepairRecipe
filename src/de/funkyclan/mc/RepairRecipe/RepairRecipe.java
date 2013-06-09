@@ -20,7 +20,7 @@ public class RepairRecipe extends JavaPlugin {
 
     public static final Logger logger = Logger.getLogger("Minecraft");
 
-    private Set<ShapelessRepairRecipe> repairRecipes;
+    private Set<ShapelessRepairRecipe> repairRecipes = new HashSet<ShapelessRepairRecipe>();
     private RepairRecipeConfig config;
 
     public void onEnable() {
@@ -30,7 +30,6 @@ public class RepairRecipe extends JavaPlugin {
 
         config = new RepairRecipeConfig(this);
 
-        repairRecipes = new HashSet<ShapelessRepairRecipe>();
         addRecipes();
 
         if (repairRecipes.size() == 0) {
