@@ -1,5 +1,7 @@
 # RepairRecipe #
 
+[![Build Status](https://travis-ci.org/attrib/RepairRecipe.png)](https://travis-ci.org/attrib/RepairRecipe)
+
 See also Bukkit plugin page: http://dev.bukkit.org/server-mods/repairrecipe/
 
 Version 0.4.7
