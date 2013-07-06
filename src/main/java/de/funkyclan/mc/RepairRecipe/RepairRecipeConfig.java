@@ -77,13 +77,13 @@ public class RepairRecipeConfig {
         this.plugin = plugin;
 
         if (plugin.getServer().getPluginManager().getPlugin("Vault") != null) {
-            RegisteredServiceProvider<Permission> rsp = plugin.getServer().getServicesManager().getRegistration(Permission.class);
-            if (rsp != null) {
-                groups = rsp.getProvider().getGroups().length;
-                permission = rsp.getProvider();
+            RegisteredServiceProvider<Permission> permissionProvider = plugin.getServer().getServicesManager().getRegistration(Permission.class);
+            if (permissionProvider != null) {
+                permission = permissionProvider.getProvider();
+                groups = permission.getGroups().length;
             }
 
-            RegisteredServiceProvider<Economy> economyProvider = plugin.getServer().getServicesManager().getRegistration(net.milkbowl.vault.economy.Economy.class);
+            RegisteredServiceProvider<Economy> economyProvider = plugin.getServer().getServicesManager().getRegistration(Economy.class);
             if (economyProvider != null) {
                 economy = economyProvider.getProvider();
             }
