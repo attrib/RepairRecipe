@@ -10,9 +10,9 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.bukkit:bukkit:1.5.2-R1.0" level="project" />
-    <orderEntry type="library" name="Maven: org.bukkit:minecraft-server:1.5.2" level="project" />
-    <orderEntry type="library" name="Maven: org.bukkit:craftbukkit:1.5.2-R1.0" level="project" />
+    <orderEntry type="library" name="Maven: org.bukkit:bukkit:1.6.1-R0.1-SNAPSHOT" level="project" />
+    <orderEntry type="library" name="Maven: org.bukkit:minecraft-server:1.6.1" level="project" />
+    <orderEntry type="library" name="Maven: org.bukkit:craftbukkit:1.6.1-R0.1-SNAPSHOT" level="project" />
     <orderEntry type="library" name="Maven: net.milkbowl.vault:Vault:1.2.25-SNAPSHOT" level="project" />
   </component>
 </module>

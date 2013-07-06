@@ -1,5 +1,9 @@
 # Changelog #
 
+## v0.4.8-beta ##
+
+- Updating for Bukkit 1.6.1-R0.1
+
 ## v0.4.7 ##
 
 - Fixed Issue #28: Removed Exception from PermissionsEx (java.lang.ClassNotFoundException: ru.tehkode.permissions.exceptions.PermissionsNotAvailable)
