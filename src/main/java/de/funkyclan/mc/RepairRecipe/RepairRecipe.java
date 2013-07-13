@@ -2,11 +2,11 @@ package de.funkyclan.mc.RepairRecipe;
 
 import de.funkyclan.mc.RepairRecipe.Listener.CraftingListener;
 import de.funkyclan.mc.RepairRecipe.Recipe.ShapelessRepairRecipe;
-import net.minecraft.server.v1_6_R1.Packet103SetSlot;
+import net.minecraft.server.v1_6_R2.Packet103SetSlot;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.craftbukkit.v1_6_R1.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_6_R1.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_6_R2.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_6_R2.inventory.CraftItemStack;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -97,6 +97,9 @@ public class RepairRecipe extends JavaPlugin {
             }
 
             int baseAmount = section.getInt("base_amount");
+            if (baseAmount == 0) {
+                logger.info("[RepairRecipe] No base_amount to repair " + item.name() + " with " + baseItem.name() + ". Repairing is for free!");
+            }
 
             ShapelessRepairRecipe recipe = new ShapelessRepairRecipe(item, baseItem, baseAmount, this);
 

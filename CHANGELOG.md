@@ -1,5 +1,10 @@
 # Changelog #
 
+## v0.4.9-beta ##
+
+- Warn user if no '''base amount''' for a item in items.yml is set.
+- Updating for Bukkit 1.6.2-R0.1
+
 ## v0.4.8-beta ##
 
 - Updating for Bukkit 1.6.1-R0.1
