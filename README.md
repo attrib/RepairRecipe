@@ -1,6 +1,6 @@
 # RepairRecipe #
 
-[![Build Status](https://travis-ci.org/attrib/RepairRecipe.png)](https://travis-ci.org/attrib/RepairRecipe)
+[![Build Status](https://drone.io/github.com/attrib/RepairRecipe/status.png)](https://drone.io/github.com/attrib/RepairRecipe/latest)
 
 See also Bukkit plugin page: http://dev.bukkit.org/server-mods/repairrecipe/
 
