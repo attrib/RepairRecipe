@@ -22,7 +22,6 @@ public class RepairRecipeConfig {
     private RepairRecipe plugin;
 
     private Permission permission = null;
-    private int groups = 0;
     private Economy economy;
     private HashMap<String, Integer> discountGroups;
     private HashMap<String, Integer> enchantMultiplierGroups;
@@ -80,7 +79,6 @@ public class RepairRecipeConfig {
             RegisteredServiceProvider<Permission> permissionProvider = plugin.getServer().getServicesManager().getRegistration(Permission.class);
             if (permissionProvider != null) {
                 permission = permissionProvider.getProvider();
-                groups = permission.getGroups().length;
             }
 
             RegisteredServiceProvider<Economy> economyProvider = plugin.getServer().getServicesManager().getRegistration(Economy.class);
@@ -152,7 +150,7 @@ public class RepairRecipeConfig {
     }
 
     public int configKeepEnchantments(Player player) {
-        if (permission == null || groups == 0 || enchantChanceGroups.size() == 0 || player == null) {
+        if (permission == null || groupsEnabled() || enchantChanceGroups.size() == 0 || player == null) {
             return plugin.getConfig().getInt("keep_enchantments_chance", Default.CONF_KEEP_ENCHANTS.getInt());
         } else {
             int chance = Integer.MIN_VALUE;
@@ -188,7 +186,7 @@ public class RepairRecipeConfig {
 
     public double configMaxEnchantMultiplier(Player player) {
         int multiplier = Integer.MIN_VALUE;
-        if (permission != null && groups > 0 && enchantMultiplierGroups.size() > 0 && player != null) {
+        if (permission != null && groupsEnabled() && enchantMultiplierGroups.size() > 0 && player != null) {
             //permission.
             for (String group : getPlayerGroups(player)) {
                 if (enchantMultiplierGroups.containsKey(group)) {
@@ -222,7 +220,7 @@ public class RepairRecipeConfig {
     }
 
     public double configDiscount(Player player) {
-        if (permission == null || groups == 0 || discountGroups.size() == 0) {
+        if (permission == null || groupsEnabled() || discountGroups.size() == 0) {
             int discount = plugin.getConfig().getInt("discount", Default.CONF_DISCOUNT.getInt());
             if (discount >= 100) {
                 return 0.0;
@@ -246,9 +244,8 @@ public class RepairRecipeConfig {
     }
 
     private String[] getPlayerGroups(Player player) {
-        // TODO: bleeding edge feature, use this with new vault version
-//        if (!permission.hasGroupSupport())
-//            return new String[0];
+        if (!permission.hasGroupSupport())
+            return new String[0];
         // TODO: Both functions could retrieve odd values, depending on permission system support, see https://github.com/MilkBowl/Vault/issues/368.
         String[] globalGroups = permission.getPlayerGroups((String) null, player.getName());
         String[] worldGroups = permission.getPlayerGroups(player);
@@ -379,5 +376,9 @@ public class RepairRecipeConfig {
         }
 
         reloadItemConfig();
+    }
+
+    private boolean groupsEnabled() {
+        return permission.getGroups().length > 0;
     }
 }

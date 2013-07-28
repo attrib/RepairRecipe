@@ -1,5 +1,9 @@
 # Changelog #
 
+## v0.4.9-beta2 ##
+
+- Fixed Permissions manager is not accessible Exception.
+
 ## v0.4.9-beta ##
 
 - Warn user if no '''base amount''' for a item in items.yml is set.
