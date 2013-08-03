@@ -48,7 +48,8 @@ public class RepairRecipeConfig {
         CONF_KEEP_ENCHANTS(100),
         CONF_HIGHEST_ENCHANT(true),
         CONF_MAX_ENCHANT_MULTIPLIER(100),
-        CONF_DISCOUNT(10);
+        CONF_DISCOUNT(10),
+        CONF_DISABLE_STANDARD_REPAIR(false);
 
         private final boolean bdef;
         private final int idef;
@@ -183,6 +184,9 @@ public class RepairRecipeConfig {
         return plugin.getConfig().getBoolean("use_highest_enchant", Default.CONF_HIGHEST_ENCHANT.getBoolean());
     }
 
+    public boolean configDisableStandardRepair() {
+        return plugin.getConfig().getBoolean("disable_standard_repair", Default.CONF_DISABLE_STANDARD_REPAIR.getBoolean());
+    }
 
     public double configMaxEnchantMultiplier(Player player) {
         int multiplier = Integer.MIN_VALUE;

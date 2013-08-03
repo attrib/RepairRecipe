@@ -2,6 +2,7 @@
 
 ## v0.4.9-beta2 ##
 
+- Added disable_standard_repair config.
 - Fixed Permissions manager is not accessible Exception.
 
 ## v0.4.9-beta ##

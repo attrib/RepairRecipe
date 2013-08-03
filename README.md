@@ -40,6 +40,7 @@ Example:
 * Configure extra costs for special enchantments (configurable per enchant)
 * Over-Repair - waste no base item and allow to get items repaired over 100% durability
 * Discounts for Groups - set a discount for your sponsors (configurable global and per group - Vault needed)
+* Disable Standard Repair - disable item repair with using two items of the same type  - [Minecraft Item repair](http://www.minecraftwiki.net/wiki/Item_repair)
 
 ## Installation ##
 
@@ -156,6 +157,17 @@ diamond_sword:                         # see above
     use_highest_enchant: true          # high multiplier but only for the highest enchant, sounds fair?
     # more are coming (exp costs for repair? exp get for repair? economy costs? ...?)
 ```
+
+### `disable_standard_repair` ###
+If you like you can disable the standard repair functionality provided by Minecraft - see [MC Wiki](disable_standard_repair).
+When set to true, the user no longer can repair items with the same item type.
+Defaults to false, which doesn't change anything. So user can repair items with the old method and loosing enchantments
+or using the method from this plugin.
+```
+disable_standard_repair: false # or true
+```
+
+This doesn't affect Anvil repair!
 
 ## Permissions ##
 
