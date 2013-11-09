@@ -1,5 +1,9 @@
 # Changelog #
 
+## v0.4.9-beta3 ##
+
+- Updating for Bukkit 1.6.4-R2.0
+
 ## v0.4.9-beta2 ##
 
 - Added disable_standard_repair config.
