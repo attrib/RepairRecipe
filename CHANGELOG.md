@@ -1,6 +1,6 @@
 # Changelog #
 
-## v0.4.9-beta3 ##
+## v0.4.9-beta3 == v0.4.9 ##
 
 - Updating for Bukkit 1.6.4-R2.0
 

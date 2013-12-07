@@ -4,7 +4,7 @@
 
 See also Bukkit plugin page: http://dev.bukkit.org/server-mods/repairrecipe/
 
-Version 0.4.9-beta3
+Version 0.4.9
 
 Compatible Bukkit Version: 1.6.4-R2.0
 
