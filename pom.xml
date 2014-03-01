@@ -6,9 +6,12 @@
     <groupId>de.funkyclan.mc.RepairRecipe</groupId>
     <artifactId>RepairRecipe</artifactId>
     <packaging>jar</packaging>
-    <version>0.5.0-beta-dev</version>
+    <version>0.5.0-beta</version>
     <name>RepairRecipe</name>
     <url>http://dev.bukkit.org/bukkit-plugins/repairrecipe/</url>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    </properties>
     <build>
         <resources>
             <resource>
@@ -33,12 +36,12 @@
             <groupId>org.bukkit</groupId>
             <artifactId>craftbukkit</artifactId>
             <!-- Bukkit API Version, change if necessary -->
-            <version>1.7.2-R0.1-SNAPSHOT</version>
+            <version>1.7.2-R0.3-SNAPSHOT</version>
         </dependency>
         <dependency>
             <groupId>net.milkbowl.vault</groupId>
             <artifactId>Vault</artifactId>
-            <version>1.2.27</version>
+            <version>1.2.32</version>
         </dependency>
     </dependencies>
     <repositories>
