@@ -2,11 +2,12 @@ package de.funkyclan.mc.RepairRecipe;
 
 import de.funkyclan.mc.RepairRecipe.Listener.CraftingListener;
 import de.funkyclan.mc.RepairRecipe.Recipe.ShapelessRepairRecipe;
-import net.minecraft.server.v1_5_R3.Packet103SetSlot;
+//import net.minecraft.server.v1_7_R3.Packet103SetSlot;
+import net.minecraft.server.v1_7_R3.PacketPlayOutSetSlot;
 import org.bukkit.Material;
 import org.bukkit.configuration.ConfigurationSection;
-import org.bukkit.craftbukkit.v1_5_R3.entity.CraftPlayer;
-import org.bukkit.craftbukkit.v1_5_R3.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_7_R3.entity.CraftPlayer;
+import org.bukkit.craftbukkit.v1_7_R3.inventory.CraftItemStack;
 import org.bukkit.entity.HumanEntity;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -71,13 +72,14 @@ public class RepairRecipe extends JavaPlugin {
         if (player instanceof CraftPlayer) {
             CraftPlayer craftPlayer = (CraftPlayer) player;
             if (craftPlayer.getHandle().activeContainer != null) {
-                Packet103SetSlot packet = new Packet103SetSlot();
-                packet.a = craftPlayer.getHandle().activeContainer.windowId;
-                packet.b = index;
-                packet.c = CraftItemStack.asNMSCopy(item);
-
+                PacketPlayOutSetSlot packet =  new PacketPlayOutSetSlot(
+                	craftPlayer.getHandle().activeContainer.windowId, 
+                	0, 
+                	CraftItemStack.asNMSCopy(item));
+                
                 craftPlayer.getHandle().playerConnection.sendPacket(packet);
             }
+            
         }
     }
 
