@@ -74,7 +74,7 @@ public class RepairRecipe extends JavaPlugin {
             if (craftPlayer.getHandle().activeContainer != null) {
                 PacketPlayOutSetSlot packet =  new PacketPlayOutSetSlot(
                 	craftPlayer.getHandle().activeContainer.windowId, 
-                	0, 
+                	index, 
                 	CraftItemStack.asNMSCopy(item));
                 
                 craftPlayer.getHandle().playerConnection.sendPacket(packet);
