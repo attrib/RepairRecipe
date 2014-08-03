@@ -3,6 +3,7 @@
 ## 0.5.0-beta2 ##
 
 - Updating for Bukkit 1.7.9-R0.2 beta
+- Update Vault dependency
 
 ## 0.5.0-beta ##
 
