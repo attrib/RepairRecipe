@@ -1,5 +1,9 @@
 # Changelog #
 
+## 0.5.0-beta2 ##
+
+- Updating for Bukkit 1.7.9-R0.2 beta
+
 ## 0.5.0-beta ##
 
 - Updating for Bukkit 1.7.2-R0.3 beta
