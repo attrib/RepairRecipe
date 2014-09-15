@@ -52,6 +52,13 @@
             <artifactId>Vault</artifactId>
             <version>1.2.25-SNAPSHOT</version>
         </dependency>
+        <dependency>
+            <groupId>org.bukkit</groupId>
+            <artifactId>craftbukkit</artifactId>
+            <version>1.7.10-R0.1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/lib/spigot-1.7.10-R0.1-SNAPSHOT.jar</systemPath>
+        </dependency>
     </dependencies>
     <repositories>
         <repository>
