@@ -99,6 +99,9 @@ public class RepairRecipe extends JavaPlugin {
             }
 
             int baseAmount = section.getInt("base_amount");
+            if (baseAmount == 0) {
+                logger.info("[RepairRecipe] No base_amount to repair " + item.name() + " with " + baseItem.name() + ". Repairing is for free!");
+            }
 
             ShapelessRepairRecipe recipe = new ShapelessRepairRecipe(item, baseItem, baseAmount, this);
 

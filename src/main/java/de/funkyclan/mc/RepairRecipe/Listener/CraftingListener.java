@@ -68,7 +68,9 @@ public class CraftingListener implements Listener {
     @EventHandler(priority = EventPriority.LOWEST)
     public void onPrepareItemCraft(PrepareItemCraftEvent event) {
         ShapelessRepairRecipe recipe = plugin.getRepairRecipeFor(event.getRecipe().getResult());
-
+        if (event.isRepair() && plugin.getConfigurator().configDisableStandardRepair()) {
+            event.getInventory().setResult(null);
+        }
         if (recipe != null && recipe.checkIngredients(event.getInventory().getMatrix())) {
             if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("Found Recipe: " + recipe.toString());
             ItemStack repairedItem = recipe.repairItem(event.getInventory(), false, event.getViewers());

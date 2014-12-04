@@ -7,3 +7,4 @@ discount: 10
 discount_groups: {}
 use_highest_enchant: false
 special_enchant_multiplier: {}
+disable_standard_repair: false

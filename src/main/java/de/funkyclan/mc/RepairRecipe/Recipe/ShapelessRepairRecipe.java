@@ -229,7 +229,13 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
                 }
             }
 
-            double baseRepairCost = (double) repairedItem.getDurability() / ((item.getMaxDurability() / this.ingotCost));
+            double baseRepairCost;
+            if (this.ingotCost == 0) {
+                baseRepairCost = 0;
+            }
+            else {
+                baseRepairCost = (double) repairedItem.getDurability() / ((item.getMaxDurability() / this.ingotCost));
+            }
             if (RepairRecipeConfig.DEBUG) RepairRecipe.logger.info("baseRepairCost: " + baseRepairCost);
 
             baseRepairCost += baseRepairCost * getEnchantMultiplier(players) * enchantLevel;
@@ -283,7 +289,7 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
                         plugin.updateSlotInventory(entity, sendIngot, ingotIndex);
                     }
 
-                } else if (ingotCost == -1 && discount == 0.0) {
+                } else if (ingotCost == -1 && (discount == 0.0 || this.ingotCost == 0)) {
                     ingot.setAmount(ingot.getAmount() + 1);
                     for (HumanEntity entity : players) {
                         // some strange behavior here, we have also to subtract the recipe costs here...
@@ -291,7 +297,7 @@ public class ShapelessRepairRecipe extends ShapelessRecipe {
                         sendIngot.setAmount(ingot.getAmount() - 1);
                         plugin.updateSlotInventory(entity, sendIngot, ingotIndex);
                     }
-                } else if (ingotCost < 0) {
+                } else if (ingotCost < 0 && item.getMaxDurability() != 0) {
                     return null;
                 }
             }

@@ -1,5 +1,23 @@
 # Changelog #
 
+## v0.4.9-beta3 == v0.4.9 ##
+
+- Updating for Bukkit 1.6.4-R2.0
+
+## v0.4.9-beta2 ##
+
+- Added disable_standard_repair config.
+- Fixed Permissions manager is not accessible Exception.
+
+## v0.4.9-beta ##
+
+- Warn user if no '''base amount''' for a item in items.yml is set.
+- Updating for Bukkit 1.6.2-R0.1
+
+## v0.4.8-beta ##
+
+- Updating for Bukkit 1.6.1-R0.1
+
 ## v0.4.7 ##
 
 - Fixed Issue #28: Removed Exception from PermissionsEx (java.lang.ClassNotFoundException: ru.tehkode.permissions.exceptions.PermissionsNotAvailable)
